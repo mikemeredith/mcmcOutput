@@ -1,0 +1,21 @@
+# NAMESPACE for package 'mcmcOutput'
+
+importFrom("coda", "mcmc.list") #"mcmc", "as.mcmc.list", "thin")
+
+#importFrom("parallel", "detectCores", "makeCluster", "stopCluster", "clusterEvalQ",
+#  "clusterExport", "parLapply")
+importFrom("stats", "update", "window", "median", "sd")
+#importFrom("utils", "flush.console")
+#importFrom("HDInterval", "hdi")
+
+#export(simsList)
+
+export("mcmcOutput")
+S3method("mcmcOutput", "default")
+S3method("mcmcOutput", "mcmc.list")
+S3method("mcmcOutput", "jagsUI")
+
+S3method("$", "mcmcOutput")
+S3method("[", "mcmcOutput")
+S3method("print", "mcmcOutput")
+S3method("summary", "mcmcOutput")

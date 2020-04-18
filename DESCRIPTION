@@ -1,0 +1,12 @@
+Package: mcmcOutput
+Type: Package
+Title: Run JAGS and Regularly Save Output to Files
+Version: 0.0.0.9000
+Date: 2020-04-15
+Depends: R (>= 2.10)
+Imports: HDInterval, coda
+Author: Mike Meredith
+Maintainer: Mike Meredith <mike@mmeredith.net>
+Description: Classes and methods for handling MCMC output.
+License: GPL (>=3)
+NeedsCompilation: no

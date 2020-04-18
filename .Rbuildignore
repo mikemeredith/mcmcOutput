@@ -1,0 +1,6 @@
+.gitattributes
+.gitignore
+.git
+.travis.yml
+README.md
+Rplots.pdf
