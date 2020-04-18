@@ -1,8 +1,8 @@
 Package: mcmcOutput
 Type: Package
 Title: Run JAGS and Regularly Save Output to Files
-Version: 0.0.0.9000
-Date: 2020-04-15
+Version: 0.0.0.9001
+Date: 2020-04-18
 Depends: R (>= 2.10)
 Imports: HDInterval, coda
 Author: Mike Meredith

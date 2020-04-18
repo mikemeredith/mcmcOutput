@@ -20,15 +20,18 @@ mcmcOutput(object, ...)
 
 \method{mcmcOutput}{default}(object, ...)
 
-\method{mcmcOutput}{mcmc.list}(object, ...)
+\method{mcmcOutput}{mcmc.list}(object, header, ...)
 
-\method{mcmcOutput}{jagsUI}(object, ...)
+\method{mcmcOutput}{jagsUI}(object, header, ...)
 
 }
 
 \arguments{
   \item{object}{
 an object containing the MCMC chains; see Details.
+}
+  \item{header}{
+text to use as the header by \code{print} and \code{summary} methods.
 }
   \item{\dots}{
 named parameters to be passed to other methods (currently not used).
@@ -51,12 +54,8 @@ An object of class \code{mcmcOutput}. This is a matrix with a column for the MCM
   \tabular{ll}{
   \code{nChains} \tab  the number of chains. \cr
   \code{simsList} \tab  a list specifying which columns correspond to each parameter. \cr
-  %%\code{summary} \tab  a data frame with summary statistics for all parameters. \cr
   \code{header} \tab text to be displayed as the first line when the object is printed. \cr
   \code{call} \tab the original function call. \cr
-  \code{n.eff} \tab  a vector of effective sample sizes for the parameters. \cr
-  \code{MCerror} \tab a vector with Monte Carlo errors for the parameters. \cr
-  \code{Rhat} \tab a vector with potential scale reduction factors for the parameters. \cr
   \code{timetaken} \tab an object of class \code{difftime} with the time taken for the MCMC run. }
 }
 

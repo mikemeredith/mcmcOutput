@@ -5,12 +5,12 @@
 
 # This follows WinBUGS in using the central 80% interval as the measure of width (WinBUGS manual p.27).
 
-simplestRhat <- function(object) {
+simplestRhat <- function(x) {
 
   width <- function(y)
     diff(quantile(y, c(0.1, 0.9)))
 
-  nChains <- attr(object, "nChains")
+  nChains <- attr(x, "nChains")
 
   n.par <- ncol(x)                     # number of parameters
   parNames <- colnames(x)
@@ -30,6 +30,7 @@ simplestRhat <- function(object) {
   W <- colMeans(W0)
 
   Rhat <- B / W
+  Rhat[is.nan(Rhat)] <- NA
   names(Rhat) <- parNames
   return(Rhat)
 }

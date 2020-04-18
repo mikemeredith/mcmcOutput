@@ -20,6 +20,7 @@ getMCEpc <- function(x) {
   parNames <- colnames(x)
   n.iter <- nrow(x)                    # total number of draws
   ipc <- n.iter / nChains              # iterations per chain (T in Lunn et al)
+  x <- unclass(x)                      # convert to plain old matrix
 
   bpc <- sqrt(n.iter) %/% nChains      # batches per chain (Q)
   bsize <- floor(nrow(x)/nChains/bpc)  # batch size (a)
@@ -33,6 +34,7 @@ getMCEpc <- function(x) {
   sqdev <- (sweep(bm, 2, colMeans(bm), "-"))^2  # Get squared deviation
   SD <- sqrt(colSums(sqdev) * bsize / (nChains*bpc - 1)) # sqrt(rho)
   MCEpc <- SD / sqrt(n.iter) / postSD * 100
+  MCEpc[is.nan(MCEpc)] <- NA
   names(MCEpc) <- parNames
   return(MCEpc)
 }
