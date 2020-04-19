@@ -2,8 +2,6 @@
 
 importFrom("coda", "mcmc.list") #"mcmc", "as.mcmc.list", "thin")
 
-#importFrom("parallel", "detectCores", "makeCluster", "stopCluster", "clusterEvalQ",
-#  "clusterExport", "parLapply")
 importFrom("stats", "window", "median", "sd", "quantile")
 importFrom("utils", "head", "tail", "str", "object.size")
 importFrom("HDInterval", "hdi")
@@ -25,7 +23,7 @@ S3method("[", "mcmcOutput")
 # Featured methods
 S3method("print", "mcmcOutput")
 S3method("summary", "mcmcOutput")
-# add window, thin, burnin
+S3method("window", "mcmcOutput")
 
 # General methods that don't work otherwise
 S3method("head", "mcmcOutput")

@@ -5,7 +5,7 @@
 Print and summary methods for objects of class \code{mcmcOutput}
 }
 \description{
-\code{summary} generates a data frame with summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object, and prints a brief overview to the Console.
+\code{summary} generates a data frame with summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object, and prints a brief overview to the Console. The data frame will be displayed in the Console unless assigned to an object or passed to \code{View}.
 
 \code{print} displays characteristics of the \code{mcmcOutput} object.
 }
@@ -70,7 +70,14 @@ Roberts, G.O. (1996). Markov chain concepts related to sampling algorithms. In \
 }
 
 \examples{
-# TODO
+data(mcmcListExample)
+mco <- mcmcOutput(mcmcListExample)
+mco  # equivalent to ...
+print(mco)
+summary(mco)
+View(summary(mco))
+summary(mco)
+summary(mco, median=FALSE, CRItype="sym", CRImass=0.8, n.eff=TRUE, MCEpc=FALSE)
 }
 \keyword{print}
 \keyword{methods}

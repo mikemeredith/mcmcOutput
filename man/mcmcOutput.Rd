@@ -15,7 +15,7 @@ Conversion to class \code{mcmcOutput}
 \description{
 Convert output containing MCMC chains to the class \code{mcmcOutput}. The function is generic, with methods for a range of input objects.
 
-\code{print} and \code{summary} methods are available for the class.
+\code{print}, \code{summary} and \code{window} methods are available for the class.
 
 This class is still experimental and specs may be changed in future versions.
 }
