@@ -6,5 +6,7 @@ The `mcmcOutput` class stores a single copy of the MCMC values, with customised 
 
 A range of constructor methods are provided covering common output formats, and window, print, plot, and summary methods are available.
 
+Some functions in the package are similar to functions in the `wiqid` and `saveJAGS` packages; the plan is to remove them from those packages, which will then Depend on `mcmcOutput`
+
 For more information see [here](https://mmeredith.net/blog/2020/storing_MCMC.htm).
 

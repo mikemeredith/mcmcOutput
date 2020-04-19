@@ -12,7 +12,11 @@ importFrom("HDInterval", "hdi")
 export("mcmcOutput")
 S3method("mcmcOutput", "default")
 S3method("mcmcOutput", "mcmc.list")
+S3method("mcmcOutput", "mcmc")
 S3method("mcmcOutput", "jagsUI")
+S3method("mcmcOutput", "bugs")
+S3method("mcmcOutput", "rjags")
+S3method("mcmcOutput", "runjags")
 
 # Extractors
 S3method("$", "mcmcOutput")

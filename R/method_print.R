@@ -7,6 +7,16 @@ print.mcmcOutput <- function(x, ...)  {
   header <- attr(x, "header")
   if(!is.null(header))
     cat(header, "\n")
+  modelFile <- attr(x, "modelFile")
+  if(!is.null(modelFile))
+    cat("Model definition file:", modelFile, "\n")
+  runDate <- attr(x, "runDate")
+  if(!is.null(runDate))
+    cat("Model run date:", format(runDate, "%Y-%m-%d %H:%M:%S"), "\n")
+  timeTaken <- attr(x, "timeTaken")
+  if(!is.null(timeTaken))
+    cat("MCMC chain generation took", secs2dhms(timeTaken, 2), "\n")
+
   nChains <- attr(x, "nChains")
   draws <- nrow(x) / nChains
   cat("The output has", nChains, "chains each with", draws, "draws.\n")

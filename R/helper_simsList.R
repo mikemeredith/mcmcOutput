@@ -1,18 +1,6 @@
 
 # Helper functions for the mcmcOutput generators
 
-mcmcOutput.jagsUI <- function(object, header, ...) {
-  name <- deparse(substitute(object))
-  mcMat <- mcmcOutput(object$samples)
-  # attr(mcMat, "nChains") <- length(object$samples)
-  # attr(mcMat, "simsList") <- simsListAttr(mcMat)
-  if(missing(header))
-    header <- paste("MCMC values from jagsUI object", sQuote(name))
-  attr(mcMat, "header") <- header
-  return(mcMat)
-}
-# .......................................................................
-
 # Generate the simsList attribute
 simsListAttr <- function(mcMat, ...) {
   # Get parameter names

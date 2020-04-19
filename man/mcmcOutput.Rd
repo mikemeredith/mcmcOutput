@@ -3,7 +3,11 @@
 \alias{mcmcOutput}
 \alias{mcmcOutput.default}
 \alias{mcmcOutput.mcmc.list}
+\alias{mcmcOutput.mcmc}
 \alias{mcmcOutput.jagsUI}
+\alias{mcmcOutput.bugs}
+\alias{mcmcOutput.rjags}
+\alias{mcmcOutput.runjags}
 
 \title{
 Conversion to class \code{mcmcOutput}
@@ -22,7 +26,15 @@ mcmcOutput(object, ...)
 
 \method{mcmcOutput}{mcmc.list}(object, header, ...)
 
+\method{mcmcOutput}{mcmc}(object, header, ...)
+
 \method{mcmcOutput}{jagsUI}(object, header, ...)
+
+\method{mcmcOutput}{bugs}(object, header, ...)
+
+\method{mcmcOutput}{rjags}(object, header, ...)
+
+\method{mcmcOutput}{runjags}(object, header, ...)
 
 }
 
@@ -56,7 +68,9 @@ An object of class \code{mcmcOutput}. This is a matrix with a column for the MCM
   \code{simsList} \tab  a list specifying which columns correspond to each parameter. \cr
   \code{header} \tab text to be displayed as the first line when the object is printed. \cr
   \code{call} \tab the original function call. \cr
-  \code{timetaken} \tab an object of class \code{difftime} with the time taken for the MCMC run. }
+  \code{modelFile} \tab the name of the original model file. \cr
+  \code{timeTaken} \tab the time taken in seconds for the MCMC run. \cr
+  \code{runDate} \tab an object of class \code{POSIXct} with the date of the MCMC run. }
 }
 
 \author{

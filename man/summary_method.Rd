@@ -47,11 +47,11 @@ further arguments for the print or summary function.
 }
 \details{
 
-\code{Rhat} is the Brooks-Gelman-Rubin (BGR) (Brooks & Gelman 1998) convergence diagnostic, an 'interval' estimator of the 'potential scale reduction factor' for MCMC output. Similar to the function gelman.diag in coda, but much faster when thousands of parameters are involved and will not cause R to crash.
+\code{Rhat} is the Brooks-Gelman-Rubin (BGR) (Brooks & Gelman 1998) convergence diagnostic, an 'interval' estimator of the 'potential scale reduction factor' for MCMC output. Similar to the function \code{coda::gelman.diag}, but much faster when thousands of parameters are involved and will not cause R to crash.
 
 \code{MCEpc} is calculated using the batch method of Lunn et al (2013, p77); see also Roberts (1996).
 
-\code{n.eff} uses the \code{effectiveSize} in package \code{coda}.
+\code{n.eff} uses \code{coda::effectiveSize}.
 }
 
 \value{
