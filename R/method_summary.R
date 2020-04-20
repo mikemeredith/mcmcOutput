@@ -10,7 +10,7 @@ summarise <- function(x, median, CRItype, CRImass, Rhat, MCEpc, n.eff, ...) {
     colnames(CRI) <- c("HDIlo", "HDIup")
   } else {
     tail <- (1 - CRImass)/2
-    CRI <- t(apply(x, 2, quantile, probs=c(tail, 1-tail)))
+    CRI <- t(apply(x, 2, quantile, probs=c(tail, 1-tail), na.rm=TRUE))
   }
   
   nChains <- attr(x, "nChains")
@@ -24,7 +24,7 @@ summarise <- function(x, median, CRItype, CRImass, Rhat, MCEpc, n.eff, ...) {
     summary <- cbind(summary, "median" = apply(x, 2, median))
   summary <- cbind(summary, CRI)
   if(Rhat & nChains > 1 & draws.per.chain > 100)
-    summary <- cbind(summary, "Rhat" = simplestRhat(x))
+    summary <- cbind(summary, "Rhat" = simpleRhat(x))
   if(MCEpc & draws.per.chain > 100)
     summary <- cbind(summary, "MCE%" = getMCEpc(x))
   if(n.eff & ndraws > 100)

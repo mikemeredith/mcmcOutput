@@ -2,9 +2,12 @@
 
 importFrom("coda", "mcmc.list") #"mcmc", "as.mcmc.list", "thin")
 
-importFrom("stats", "window", "median", "sd", "quantile")
-importFrom("utils", "head", "tail", "str", "object.size")
+importFrom("stats", "window", "median", "sd", "quantile", "bw.nrd0", "density")
+importFrom("utils", "head", "tail", "str", "object.size", "modifyList")
 importFrom("HDInterval", "hdi")
+importFrom("grDevices", "dev.interactive", "devAskNewPage")
+importFrom("graphics", "plot", "abline", "box", "layout", "matplot", "par",
+             "segments", "text", "title")
 
 # Constructor methods
 export("mcmcOutput")
@@ -24,6 +27,7 @@ S3method("[", "mcmcOutput")
 S3method("print", "mcmcOutput")
 S3method("summary", "mcmcOutput")
 S3method("window", "mcmcOutput")
+S3method("plot", "mcmcOutput")
 
 # General methods that don't work otherwise
 S3method("head", "mcmcOutput")
