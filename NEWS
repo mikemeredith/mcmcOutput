@@ -1,5 +1,9 @@
 
-CHANGES IN 0.0.0.9004 (2020-04-19)
+CHANGES IN 0.0.0.9005 (2020-04-20)
+
+  * Added constructors for matrix and data frame.
+
+CHANGES IN 0.0.0.9004 (2020-04-20)
 
   * Added 'plot' method.
 

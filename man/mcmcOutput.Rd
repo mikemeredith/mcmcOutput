@@ -36,6 +36,10 @@ mcmcOutput(object, ...)
 
 \method{mcmcOutput}{runjags}(object, header, ...)
 
+\method{mcmcOutput}{matrix}(object, nChains=1, header, ...)
+
+\method{mcmcOutput}{data.frame}(object, nChains=1, header, ...)
+
 }
 
 \arguments{
@@ -44,6 +48,9 @@ an object containing the MCMC chains; see Details.
 }
   \item{header}{
 text to use as the header by \code{print} and \code{summary} methods.
+}
+  \item{nChains}{
+the number of chains.
 }
   \item{\dots}{
 named parameters to be passed to other methods (currently not used).

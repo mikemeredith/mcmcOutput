@@ -59,7 +59,7 @@ Mike Meredith
 \examples{
 \donttest{
 # Create a fake mcmcOutput object:
-fake <- cbind(
+tmp <- cbind(
   mu0 = rnorm(3000),         # normal, mean zero
   mu10 = rnorm(3000, rep(9:11, each=1000), 1),
                              # normal, mean 10, but poor mixing
@@ -74,10 +74,7 @@ fake <- cbind(
                              # some NaNs
   const1 = rep(1, 3000),     # all values = 1
   const3.2 = rep(10/3, 3000))# all values the same but not integer
-attr(fake, "nChains") <- 3
-class(fake) <- c("mcmcOutput", "matrix", "array")
-
-fake
+( fake <- mcmcOutput(tmp, nChains = 3) )
 summary(fake)
 plot(fake)
 plot(fake, params=3:6, main="params = 3:6")
