@@ -9,6 +9,9 @@ importFrom("grDevices", "dev.interactive", "devAskNewPage")
 importFrom("graphics", "plot", "abline", "box", "layout", "matplot", "par",
              "segments", "text", "title")
 
+# Functions
+export("diagPlot")
+
 # Constructor methods
 export("mcmcOutput")
 S3method("mcmcOutput", "default")

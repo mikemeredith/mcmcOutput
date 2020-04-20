@@ -1,24 +1,28 @@
 \name{plot.mcmcOutput}
 \alias{plot.mcmcOutput}
+\alias{diagPlot}
 \title{
 Diagnostic graphics for class \code{mcmcOutput}
 }
 \description{
 Display trace plots and density plots for the chains in the MCMC output. Each chain is plotted with a different colour. %See also \code{\link{crosscorrPlot}}.
+
+\code{diagPlot} is a wrapper equivalent to \code{plot(mcmcOutput(object))}.
 }
 \usage{
 
 \method{plot}{mcmcOutput}(x, params, howMany, chains,
   maxRows=4, RhatBad=1.05, precision=c("MCEpc", "n.eff"), ask=NULL, ...)
 
+diagPlot(object, ...)
 }
 \arguments{
   \item{x}{
-An object of class\code{mcmcOutput}.
+An object of class \code{mcmcOutput}.
 }
-  % \item{y}{
-% no used.
-% }
+  \item{object}{
+An object of any class with MCMC output that can be coerced to class \code{mcmcOutput}.
+}
   \item{params}{
 An optional vector of column numbers or names; names are partially matched, so \code{params="alpha"} will match all of \code{alpha, alpha0, alpha[1], alphanew}; negative indices indicate parameters to exclude, positive and negative indices cannot be mixed.
 }
@@ -57,7 +61,6 @@ Mike Meredith
 %\code{\link{crosscorrPlot}}, \code{\link{plotPost}} for a histogram and summary statistics.
 %}
 \examples{
-\donttest{
 # Create a fake mcmcOutput object:
 tmp <- cbind(
   mu0 = rnorm(3000),         # normal, mean zero
@@ -85,6 +88,10 @@ plot(fake, params=c("mu", "prob"), howMany=-200, main="howMany = -200")
 plot(fake, params=c("mu", "prob"), chains=1:2, main="chains = 1:2")
 plot(fake, params=c("mu", "prob"), chains=2, main="chains = 2") # 1 chain -> no Rhat
 
-}
+# Use diagPlot with an mcmc.list object
+data(mcmcListExample)
+diagPlot(mcmcListExample)
+diagPlot(mcmcListExample, main="example", params=1:3, precision="n.eff")
+
 }
 \keyword{hplot}

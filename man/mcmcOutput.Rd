@@ -8,6 +8,8 @@
 \alias{mcmcOutput.bugs}
 \alias{mcmcOutput.rjags}
 \alias{mcmcOutput.runjags}
+\alias{mcmcOutput.matrix}
+\alias{mcmcOutput.data.frame}
 
 \title{
 Conversion to class \code{mcmcOutput}
