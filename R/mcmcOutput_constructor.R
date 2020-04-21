@@ -8,6 +8,12 @@ mcmcOutput.default <- function(object, ...) {
 }
 # ...................................................................
 
+# Class mcmcOutput, may seem odd but catches coercion
+mcmcOutput.mcmcOutput <- function(object, ...) {
+    return(object)
+}
+# ...................................................................
+
 # Class coda::mcmc.list, used by rjags::coda.samples, jagsUI::jags.basic
 mcmcOutput.mcmc.list <- function(object, header, ...) {
   name <- deparse(substitute(object))

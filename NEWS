@@ -1,5 +1,9 @@
 
-CHANGES IN 0.0.0.900 (2020-04-20)
+CHANGES IN 0.0.0.9007 (2020-04-21)
+
+  * Added 'crosscorrPlot' function.
+
+CHANGES IN 0.0.0.9006 (2020-04-20)
 
   * Added 'diagPlot' function.
 

@@ -2,15 +2,15 @@
 
 importFrom("coda", "mcmc.list") #"mcmc", "as.mcmc.list", "thin")
 
-importFrom("stats", "window", "median", "sd", "quantile", "bw.nrd0", "density")
+importFrom("stats", "window", "median", "sd", "cor", "quantile", "bw.nrd0", "density")
 importFrom("utils", "head", "tail", "str", "object.size", "modifyList")
 importFrom("HDInterval", "hdi")
-importFrom("grDevices", "dev.interactive", "devAskNewPage")
-importFrom("graphics", "plot", "abline", "box", "layout", "matplot", "par",
-             "segments", "text", "title")
+importFrom("grDevices", "dev.interactive", "devAskNewPage", "colorRampPalette")
+importFrom("graphics", "plot", "plot.default", "abline", "box", "layout", "matplot",
+             "par", "segments", "text", "title", "rect")
 
 # Functions
-export("diagPlot")
+export("diagPlot", "crosscorrPlot")
 
 # Constructor methods
 export("mcmcOutput")
