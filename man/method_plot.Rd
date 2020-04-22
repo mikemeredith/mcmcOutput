@@ -67,8 +67,9 @@ tmp <- cbind(
   mu10 = rnorm(3000, rep(9:11, each=1000), 1),
                              # normal, mean 10, but poor mixing
   sigma=rlnorm(3000),        # non-negative, skewed
-  prob = rbeta(3000, 2, 2),  # probability, central mode
-  prob0 = rbeta(3000, 1,2),  # probability, mode = 0
+  `prob[1,1]` = rbeta(3000, 4, 4),  # probability, central mode
+  `prob[1,2]` = 0.3,         # constant
+  `prob[2,1]` = rbeta(3000, 1, 3),  # probability, mode = 0
   N = rpois(3000, rep(c(24, 18, 18), each=1000)),
                              # large integers (no zeros), poor mixing
   n = rpois(3000, 2),        # small integers (some zeros)

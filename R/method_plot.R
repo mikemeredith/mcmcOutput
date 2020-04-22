@@ -6,9 +6,6 @@ plot.mcmcOutput <- function(x, params, howMany, chains,
 
   precision <- match.arg(precision)
 
-  if(is.null(ask))
-    ask <- dev.interactive(orNone=TRUE)
-
   # Plotting parameters
   dots <- list(...)
   if(length(dots) == 1 && class(dots[[1]]) == "list")
@@ -80,6 +77,8 @@ plot.mcmcOutput <- function(x, params, howMany, chains,
     par(oma=c(1,1,3,1))
 
   if(npars > maxRows) {
+    if(is.null(ask))
+      ask <- dev.interactive(orNone=TRUE)
     old.ask <- devAskNewPage(ask)
     on.exit(devAskNewPage(old.ask), add=TRUE)
   }

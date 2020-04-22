@@ -1,4 +1,10 @@
 
+CHANGES IN 0.0.0.9008 (2020-04-22)
+
+  * Added 'postPlot' function.
+
+  * Fixed bug in 'simsListAttr', not dealing with ragged arrays when only one column given (eg, if only p[4,4], treated as scalar).
+
 CHANGES IN 0.0.0.9007 (2020-04-21)
 
   * Added 'crosscorrPlot' function.

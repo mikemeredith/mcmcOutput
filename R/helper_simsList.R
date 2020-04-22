@@ -14,8 +14,7 @@ simsListAttr <- function(mcMat, ...) {
   names(simsList) <- parNames
   for(i in seq_along(parNames)) {
     simsList[[i]] <- which(base == parNames[i])
-    if(length(simsList[[i]]) > 1)   # not scalar, need to convert to array
-      #### ISSUE: this will treat p[2,2] as scalar, not a ragged array
+    if(!(parNames[i] %in% params))   # not exact match, need to convert to array
       simsList[[i]] <- params2raggedArray(simsList[[i]], params)
   }
   return(simsList)
