@@ -12,7 +12,7 @@ importFrom("graphics", "plot", "plot.default", "abline", "box", "layout", "matpl
              "hist", "lines", "polygon")
 
 # Functions
-export("diagPlot", "crosscorrPlot", "postPlot")
+export("diagPlot", "crosscorrPlot", "postPlot", "sumryList")
 
 # Constructor methods
 export("mcmcOutput")

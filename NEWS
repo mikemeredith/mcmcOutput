@@ -1,4 +1,10 @@
 
+CHANGES IN 0.0.0.9009 (2020-04-26)
+
+  * Added 'sumryList' function.
+
+  * Changed 'MCE%' to 'MCEpc' as the '%' was upsetting the .Rd file compilation.
+
 CHANGES IN 0.0.0.9008 (2020-04-22)
 
   * Added 'postPlot' function.

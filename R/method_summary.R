@@ -1,36 +1,7 @@
 
 # S3 methods for mcmcOutput objects
 
-# Helper function to build the summary matrix, not exported
-
-summarise <- function(x, median, CRItype, CRImass, Rhat, MCEpc, n.eff, ...) {
-
-  if(CRItype == "hdi") {
-    CRI <- t(apply(x, 2, HDInterval::hdi, credMass=CRImass))
-    colnames(CRI) <- c("HDIlo", "HDIup")
-  } else {
-    tail <- (1 - CRImass)/2
-    CRI <- t(apply(x, 2, quantile, probs=c(tail, 1-tail), na.rm=TRUE))
-  }
-  
-  nChains <- attr(x, "nChains")
-  ndraws <- nrow(x)
-  draws.per.chain <- ndraws / nChains  
-  
-  summary <- data.frame(
-    "mean" = colMeans(x),
-    "sd" = apply(x, 2, sd))
-  if(median)
-    summary <- cbind(summary, "median" = apply(x, 2, median))
-  summary <- cbind(summary, CRI)
-  if(Rhat & nChains > 1 & draws.per.chain > 100)
-    summary <- cbind(summary, "Rhat" = simpleRhat(x))
-  if(MCEpc & draws.per.chain > 100)
-    summary <- cbind(summary, "MCE%" = getMCEpc(x))
-  if(n.eff & ndraws > 100)
-    summary <- cbind(summary, "n.eff" = round(safeNeff(x)))
-  return(summary)
-}
+# Needs helper 'summarise' function to build the summary matrix
 
 summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "symmetrical"),
     CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,...)  {
@@ -48,12 +19,12 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
   cat("The object has", nPars, "parameters with", draws, "draws for each of",
       nChains, "chains.\n")
   if(CRItype == "hdi") {
-    cat(paste0("HDIlo and HDIup are the limits of a ", CRImass*100, 
+    cat(paste0("HDIlo and HDIup are the limits of a ", CRImass*100,
         "% Highest Density Credible Interval.\n"))
   } else {
     lo <- (1 - CRImass)/2 *100
     hi <- 100 - lo
-    cat(paste0(lo, "% and ", hi, "% are the limits of a ", CRImass*100, 
+    cat(paste0(lo, "% and ", hi, "% are the limits of a ", CRImass*100,
         "% Symmetrical Credible Interval.\n"))
   }
   if(Rhat && !is.null(sumtab$Rhat)) {
@@ -72,9 +43,9 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
     txt <- c(txt, ".\n")
     cat(paste0(txt, collapse=""))
   }
-  if(MCEpc && !is.null(sumtab$"MCE%")) {
-    cat("MCE% is the Monte Carlo standard error as a percentage of the posterior SD:\n")
-    MCe <- sumtab[, 'MCE%']
+  if(MCEpc && !is.null(sumtab$MCEpc)) {
+    cat("MCEpc is the Monte Carlo standard error as a percentage of the posterior SD:\n")
+    MCe <- sumtab[, 'MCEpc']
     t1 <- sum(MCe > 5, na.rm=TRUE)
     t2 <- sum(is.na(MCe))
     txt <- sprintf("\tlargest is %.1f%%", max(MCe, na.rm=TRUE))
