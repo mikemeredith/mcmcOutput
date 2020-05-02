@@ -20,9 +20,10 @@ print.mcmcOutput <- function(x, ...)  {
   nChains <- attr(x, "nChains")
   draws <- nrow(x) / nChains
   cat("The output has", nChains, "chains each with", draws, "draws.\n")
-  nPars <- ncol(x)
-  elements <- sapply(attr(x, "simsList"), length)
-  cat("It has", nPars, "parameters. Top level parameters are:\n")
-  print(data.frame(elements))
+  nNodes <- ncol(x)
+  simsList <- attr(x, "simsList")
+  nodes <- sapply(simsList, function(x) sum(!is.na(x)))
+  cat("It has", length(simsList), "parameters with", nNodes, "nodes monitored:\n")
+  print(data.frame(nodes=nodes))
 }
 # .........................................................

@@ -1,4 +1,8 @@
 
+CHANGES IN 0.0.0.9010 (2020-05-02)
+
+  * Setting CRImass = NA in 'summary' suppresses display of CRI.
+
 CHANGES IN 0.0.0.9009 (2020-04-26)
 
   * Added 'sumryList' function.
