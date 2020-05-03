@@ -32,7 +32,7 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
     R <- sumtab[, 'Rhat']
     t1 <- sum(R > 1.1, na.rm=TRUE)
     t2 <- sum(is.na(R))
-    txt <- sprintf("\tlargest is %.2f", max(Rhat, na.rm=TRUE))
+    txt <- sprintf("\tlargest is %.2f", max(R, na.rm=TRUE))
     if(t1) {
       txt <- c(txt, sprintf("; %.0f (%.0f%%) are greater than 1.10", t1, 100*t1/length(R)))
     } else {

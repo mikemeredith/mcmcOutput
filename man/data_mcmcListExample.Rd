@@ -13,7 +13,7 @@ The model has three parameters:
   \item{z }{a vector of length 39, one value for each site.}
 }
 
-The number of parameters is 42 excluding p[1,2] and p[2,1], 44 if they are included.
+The number of nodes monitored is 42 (\code{p[1,2]} and \code{p[2,1]} are not monitored).
 
 Three MCMC chains were run, with 1000 adaptation iterations, 1000 burn-in, 10,000 iterations saved after thinning by 10.
 }

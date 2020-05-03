@@ -1,11 +1,14 @@
 \name{summary.mcmcOutput}
 \alias{summary.mcmcOutput}
+\alias{sumryList}
 \alias{print.mcmcOutput}
 \title{
 Print and summary methods for objects of class \code{mcmcOutput}
 }
 \description{
 \code{summary} generates a data frame with summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object, and prints a brief overview to the Console. The data frame will be displayed in the Console unless assigned to an object or passed to \code{View}.
+
+\code{sumryList} generates summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object and returns them as a list-of-lists, see Value.
 
 \code{print} displays characteristics of the \code{mcmcOutput} object.
 }
@@ -27,10 +30,10 @@ the number of digits for rounding of values in the output.
 if TRUE, the median will be included as a column in the data frame produced.
 }
   \item{CRItype}{
-if \code{hdi}, the credible interval will be a highest density interval; if \code{symmetrical}, a symmetrical CRI will be used generated with \code{quantile}
+if \code{hdi}, the credible interval will be a highest density interval; if \code{symmetrical}, a symmetrical CRI will be generated with \code{quantile}; ignored if \code{CRImass=NA}.
 }
   \item{CRImass}{
-the probability mass to include in the credible interval.
+the probability mass to include in the credible interval; if \code{CRImass=NA}, no CRI will be included in the output.
 }
   \item{Rhat}{
 if TRUE, estimates of Rhat will be included; ignored if only 1 chain or < 100 values per chain.
@@ -55,7 +58,11 @@ further arguments for the print or summary function.
 }
 
 \value{
-\code{print} returns \code{x} invisibly. \code{summary} returns a data frame with summary and diagnostic statistics for each parameter; mean, SD and a credible interval are always included, other columns if selected.
+\code{print} returns \code{x} invisibly.
+
+\code{summary} returns a data frame with summary and diagnostic statistics for each parameter; mean and SD are always included, other columns if selected.
+
+\code{sumryList} returns a list with a component for each statistic; each component is itself a list with the values for each parameter. See examples.
 }
 \author{
 Mike Meredith.
@@ -76,8 +83,12 @@ mco  # equivalent to ...
 print(mco)
 summary(mco)
 View(summary(mco))
-summary(mco)
 summary(mco, median=FALSE, CRItype="sym", CRImass=0.8, n.eff=TRUE, MCEpc=FALSE)
+
+mcos <- sumryList(mco)
+str(mcos)
+mcos$mean$p
+mcos$MCEpc$z
 }
 \keyword{print}
 \keyword{methods}

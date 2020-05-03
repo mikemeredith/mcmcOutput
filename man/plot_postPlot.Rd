@@ -50,7 +50,7 @@ The data are plotted either as a histogram (above) or, if \code{showCurve = TRUE
 \cr
 \figure{plotPost2.jpg}
 
-If values for a ROPE are supplied, these are shown as dark red vertical dashed lines, together with the percentage of probability mass within the ROPE. If a comparison value (\code{compVal}) is supplied, this is shown as a vertical green dotted line, together with the probability mass below and above this value. If values for a ROPE are supplied, these are shown as dark red vertical dashed lines, together with the percentage of probability mass within the ROPE.
+If a comparison value (\code{compVal}) is supplied, this is shown as a vertical green dotted line, together with the probability mass below and above this value. If values for a ROPE are supplied, these are shown as dark red vertical dashed lines, together with the percentage of probability mass within the ROPE.
 }
 \value{
 Returns nothing. Used for its plotting side-effect.

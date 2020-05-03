@@ -13,7 +13,7 @@ crosscorrPlot(x, params=NULL, col, addSpace=c(0,0), ...)
 }
 \arguments{
   \item{x}{
-An object with MCMC chain values,of any class that can be coerced to \code{mcmcOutput}.
+An object with MCMC chain values, of any class that can be coerced to \code{mcmcOutput}.
 }
   \item{params}{
 An optional vector of column numbers or names; names are partially matched, so \code{params="alpha"} will match all of \code{alpha, alpha0, alpha[1], alphanew}; negative indices indicate parameters to exclude, positive and negative indices cannot be mixed.
