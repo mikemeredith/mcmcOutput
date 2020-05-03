@@ -1,4 +1,8 @@
 
+CHANGES IN 0.0.0.9012 (2020-05-03)
+
+  * Added functions 'tracePlot', 'densityPlot' and 'acfPlot'.
+
 CHANGES IN 0.0.0.9011 (2020-05-03)
 
   * Fixed bug in 'summary' (was reporting max Rhat = 1 regardless of actual value).

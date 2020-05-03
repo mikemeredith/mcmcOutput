@@ -18,6 +18,8 @@ Print and summary methods for objects of class \code{mcmcOutput}
 
 \method{print}{mcmcOutput}(x, ...)
 
+sumryList(object, median=TRUE, CRItype=c("hdi", "symmetrical"),
+    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,...)
 }
 \arguments{
   \item{x, object}{

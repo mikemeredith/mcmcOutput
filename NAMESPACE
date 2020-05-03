@@ -1,18 +1,18 @@
 # NAMESPACE for package 'mcmcOutput'
 
-importFrom("coda", "mcmc.list") #"mcmc", "as.mcmc.list", "thin")
+importFrom("coda", "mcmc.list")
+importFrom("HDInterval", "hdi")
 
 importFrom("stats", "window", "median", "sd", "cor", "quantile",
-    "bw.nrd0", "bw.SJ", "bw.bcv", "bw.nrd", "bw.ucv", "density")
+    "bw.nrd0", "bw.SJ", "bw.bcv", "bw.nrd", "bw.ucv", "density", "acf")
 importFrom("utils", "head", "tail", "str", "object.size", "modifyList")
-importFrom("HDInterval", "hdi")
 importFrom("grDevices", "dev.interactive", "devAskNewPage", "colorRampPalette")
 importFrom("graphics", "plot", "plot.default", "abline", "box", "layout", "matplot",
-             "par", "segments", "text", "title", "rect",
-             "hist", "lines", "polygon")
+    "par", "segments", "text", "title", "rect", "hist", "lines", "polygon")
 
 # Functions
-export("diagPlot", "crosscorrPlot", "postPlot", "sumryList")
+export("sumryList", "diagPlot", "crosscorrPlot", "postPlot",
+    "tracePlot", "densityPlot", "acfPlot")
 
 # Constructor methods
 export("mcmcOutput")

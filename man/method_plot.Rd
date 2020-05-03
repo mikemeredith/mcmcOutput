@@ -1,6 +1,9 @@
 \name{plot.mcmcOutput}
 \alias{plot.mcmcOutput}
 \alias{diagPlot}
+\alias{tracePlot}
+\alias{densityPlot}
+\alias{acfPlot}
 \title{
 Diagnostic graphics for class \code{mcmcOutput}
 }
@@ -15,6 +18,10 @@ Display trace plots and density plots for the chains in the MCMC output. Each ch
   maxRows=4, RhatBad=1.05, precision=c("MCEpc", "n.eff"), ask=NULL, ...)
 
 diagPlot(object, ...)
+
+tracePlot(object, layout=c(3,3), ask=NULL, ...)
+densityPlot(object, layout=c(3,3), ask=NULL, ...)
+acfPlot(object, lag.max=NULL, layout=c(3,3), ask=NULL, ...)
 }
 \arguments{
   \item{x}{
@@ -42,6 +49,12 @@ Threshold for Rhat; parameters with \code{Rhat > RhatBad} are highlighted in red
   \item{precision}{
 The statistic to use for the precision, displayed above the density plot.
 }
+  \item{layout}{
+a length-2 vector with the maximum number of rows and columns to display in the plotting frame.
+}
+  \item{lag.max}{
+Maximum lag at which to calculate the acf.
+}
   \item{ask}{
 If \code{TRUE} and the number of parameters to plot is greater than \code{maxRows}, the user will be prompted before the next page of output is displayed. The default is to ask if the plotting device is the screen, not if it is a file.
 }
@@ -51,15 +64,15 @@ Additional graphical parameters.
 }
 
 \value{
-Returns nothing, used for its plotting side effect.
+Return nothing, used for their plotting side effects.
 }
 \author{
 Mike Meredith
 }
 
-%\seealso{
-%\code{\link{crosscorrPlot}}, \code{\link{plotPost}} for a histogram and summary statistics.
-%}
+\seealso{
+\code{\link{crosscorrPlot}}, \code{\link{postPlot}} for a histogram and summary statistics.
+}
 \examples{
 # Create a fake mcmcOutput object:
 tmp <- cbind(
@@ -88,6 +101,10 @@ plot(fake, params=c("mu", "prob"), howMany=50, main="howMany = 50")
 plot(fake, params=c("mu", "prob"), howMany=-200, main="howMany = -200")
 plot(fake, params=c("mu", "prob"), chains=1:2, main="chains = 1:2")
 plot(fake, params=c("mu", "prob"), chains=2, main="chains = 2") # 1 chain -> no Rhat
+
+tracePlot(fake, layout=c(2,2))
+densityPlot(fake, xlab="value")
+acfPlot(fake, lag.max=10, lwd=2)
 
 # Use diagPlot with an mcmc.list object
 data(mcmcListExample)
