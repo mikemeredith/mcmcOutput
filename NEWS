@@ -1,4 +1,8 @@
 
+CHANGES IN 0.0.0.9013 (2020-05-04)
+
+  * Added function 'bigCrosscorr'.
+
 CHANGES IN 0.0.0.9012 (2020-05-03)
 
   * Added functions 'tracePlot', 'densityPlot' and 'acfPlot'.
