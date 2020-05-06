@@ -4,7 +4,8 @@
 
 # This is now used for diagnostic plots with multiple chains in a matrix.
 
-densityFolded <- function(x, bw = "nrd0", adjust = 1, from, to, ...) {
+densityFolded <- function(x, bw = "nrd0", adjust = 1, from=NA, to=NA, ...) {
+  name <- deparse(substitute(x))
   stopifnot(is.numeric(x))
   nx <- length(x)
   if (is.character(bw)) {  # this code from stats::density
@@ -17,31 +18,18 @@ densityFolded <- function(x, bw = "nrd0", adjust = 1, from, to, ...) {
   }
   bw <- bw * adjust
 
-  # use these if folding is not needed:
-  if(missing(from))
-    from <- min(x) - 3*bw
-  if(missing(to))
-    to <- max(x) + 3*bw
-  xx <- x
-  mult <- 1
+  # x must be a matrix
+  if(is.null(dim(x)))
+    x <- matrix(x, ncol=1)
 
-  # Check for constraints
-  if (min(x) >= 0 && min(x) < 2 * bw) { # it's non-negative
-    from <- 0
-    xx <- c(x, -x)
-    mult <- 2
-  }
-  if (min(x) >= 0 && max(x) <= 1 &&
-        (min(x) < 2 * bw || 1 - max(x) < 2 * bw)) { # it's a probability
-    xx <- c(x, -x, 2-x)
-    mult <- 3
-    to <- 1
-  }
-
-
-  dens <- density(xx, bw=bw, adjust=1, from=from, to=to, ...)
-  dens$y <- dens$y * mult
+  dens <- densFold0(x, bw=bw, from=from, to=to,...)
+  dens$bw <- bw
   dens$n <- nx
   dens$call <- match.call()
+  dens$data.name <- name
+  if(dim(dens$y)[2] == 1) {
+    dens$y <- as.vector(dens$y)
+    class(dens) <- "density"
+  }
   return(dens)
 }

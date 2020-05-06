@@ -105,7 +105,7 @@ plot.mcmcOutput <- function(x, params, howMany, chains,
     if(redFlag)
       box(col=2, lwd=2)
     # do density plot
-    density0(mat, useArgsD)
+    densPlot0(mat, useArgsD)
     # titleArgs$main <- paste0("n.eff = ", n.eff[i])
     titleArgs$main <- paste0(precision, " = ", prec[i])
     titleArgs$adj <- 0

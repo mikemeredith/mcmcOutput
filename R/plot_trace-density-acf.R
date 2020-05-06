@@ -34,7 +34,7 @@ densityPlot1 <- function(mat, name, dots) {
   defaultArgs <- list(ylab="Density", type='l', lty=1, xlab="")
   useArgs <- modifyList(defaultArgs, dots)
   # useArgs$main <- name
-  density0(mat, useArgs)
+  densPlot0(mat, useArgs)
   title(main=name)
 }
 # ..........................................................
