@@ -1,7 +1,7 @@
 Package: mcmcOutput
 Type: Package
 Title: Functions to Manipulate and Display MCMC Output
-Version: 0.0.0.9014
+Version: 0.0.0.9015
 Date: 2020-05-06
 Depends: R (>= 2.10)
 Imports: HDInterval, coda, MASS

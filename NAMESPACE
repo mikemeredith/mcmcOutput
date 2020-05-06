@@ -13,7 +13,7 @@ importFrom("graphics", "plot", "plot.default", "abline", "box", "layout", "matpl
 # Functions
 export("sumryList", "diagPlot", "crosscorrPlot", "postPlot",
     "tracePlot", "densityPlot", "acfPlot", "bigCrosscorr",
-    "densityFolded")
+    "densityFolded", "postPriorOverlap")
 
 # Constructor methods
 export("mcmcOutput")

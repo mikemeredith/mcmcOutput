@@ -1,4 +1,8 @@
 
+CHANGES IN 0.0.0.9015 (2020-05-06)
+
+  * Added function 'postPriorOverlap'.
+
 CHANGES IN 0.0.0.9014 (2020-05-06)
 
   * Function 'densityFolded' is now exported.
