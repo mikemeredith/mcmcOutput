@@ -10,7 +10,7 @@ Print and summary methods for objects of class \code{mcmcOutput}
 
 \code{sumryList} generates summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object and returns them as a list-of-lists, see Value.
 
-\code{print} displays characteristics of the \code{mcmcOutput} object.
+\code{print} displays characteristics of the \code{mcmcOutput} object. It does \emph{not} display summaries of the values: for that use \code{summary}.
 }
 \usage{
 \method{summary}{mcmcOutput}(object, digits=3, median=TRUE, CRItype=c("hdi", "symmetrical"),
@@ -38,44 +38,28 @@ if \code{hdi}, the credible interval will be a highest density interval; if \cod
 the probability mass to include in the credible interval; if \code{CRImass=NA}, no CRI will be included in the output.
 }
   \item{Rhat}{
-if TRUE, estimates of Rhat will be included; ignored if only 1 chain or < 100 values per chain.
+if TRUE, estimates of Rhat will be included; ignored if only 1 chain or < 100 values per chain. See \code{\link{getRhat}}.
 }
   \item{MCEpc}{
-if TRUE, estimates of the Monte Carlo standard error as a percentage of the posterior SD will be included; ignored if < 100 values per chain.
+if TRUE, estimates of the Monte Carlo standard error as a percentage of the posterior SD will be included; ignored if < 100 values per chain. See \code{\link{getMCE}}.
 }
   \item{n.eff}{
-if TRUE, estimates of the effective number of draws allowing for autocorrelation will be included; ignored if < 100 values per chain.
+if TRUE, estimates of the effective number of draws allowing for autocorrelation will be included; ignored if < 100 values per chain. See \code{\link{getNeff}}.
 }
   \item{\dots}{
 further arguments for the print or summary function.
 }
 }
-\details{
-
-\code{Rhat} is the Brooks-Gelman-Rubin (BGR) (Brooks & Gelman 1998) convergence diagnostic, an 'interval' estimator of the 'potential scale reduction factor' for MCMC output. Similar to the function \code{coda::gelman.diag}, but much faster when thousands of parameters are involved and will not cause R to crash.
-
-\code{MCEpc} is calculated using the batch method of Lunn et al (2013, p77); see also Roberts (1996).
-
-\code{n.eff} uses \code{coda::effectiveSize}.
-}
-
+%%% Details and References moved to the getXXX help page.
 \value{
 \code{print} returns \code{x} invisibly.
 
-\code{summary} returns a data frame with summary and diagnostic statistics for each parameter; mean and SD are always included, other columns if selected.
+\code{summary} returns a data frame with summary and diagnostic statistics for each parameter; mean and SD are always included, other columns if selected. It has attributes for \code{nChains} and \code{simsList} derived from the input object.
 
 \code{sumryList} returns a list with a component for each statistic; each component is itself a list with the values for each parameter. See examples.
 }
 \author{
 Mike Meredith.
-}
-
-\references{
-Brooks, S.P. & Gelman, A. (1998) General methods for monitoring convergence of iterative simulations. \emph{Journal of Computational and Graphical Statistics}, 7, 434-455.
-
-Lunn, D., Jackson, C., Best, N., Thomas, A., & Spiegelhalter, D. (2013) \emph{The BUGS book: a practical introduction to Bayesian analysis}, Chapman and Hall.
-
-Roberts, G.O. (1996). Markov chain concepts related to sampling algorithms. In \emph{Markov Chain Monte Carlo in practice} (eds W.R. Gilks, D.J. Spiegelhalter & S. Richardson). Chapman & Hall, London.
 }
 
 \examples{
@@ -85,7 +69,8 @@ mco  # equivalent to ...
 print(mco)
 summary(mco)
 View(summary(mco))
-summary(mco, median=FALSE, CRItype="sym", CRImass=0.8, n.eff=TRUE, MCEpc=FALSE)
+tmp <- summary(mco, median=FALSE, CRItype="sym", CRImass=0.8, n.eff=TRUE, MCEpc=FALSE)
+View(tmp)
 
 mcos <- sumryList(mco)
 str(mcos)

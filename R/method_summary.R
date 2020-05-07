@@ -81,7 +81,10 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
     cat(paste0(txt, collapse=""))
   }
   cat("\n")
-  return(round(sumtab, digits))
+  out <- round(sumtab, digits)
+  attr(out, "nChains") <- attr(object, "nChains")
+  attr(out, "simsList") <- attr(object, "simsList")
+  return(out)
 }
 # .........................................................
 

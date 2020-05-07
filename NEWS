@@ -1,4 +1,8 @@
 
+CHANGES IN 0.0.0.9017 (2020-05-07)
+
+  * Added functions 'getMCE', 'getNeff' and 'getRhat'.
+
 CHANGES IN 0.0.0.9016 (2020-05-07)
 
   * The '[' extractor method with 1 index now returns a new 'mcmcOutput' object.
