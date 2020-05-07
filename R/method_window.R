@@ -1,4 +1,4 @@
-# Print, summary, plot, window, head and tail methods for class Bwiqid, ie. MCMC output
+# Window method for class mcmcOutput
 
 window.mcmcOutput <- function(x, start=1, end=NULL, thin=1, ...)  {
   nChains <- attr(x, "nChains")

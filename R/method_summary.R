@@ -15,17 +15,20 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
     cat(header, "\n")
   nChains <- attr(object, "nChains")
   draws <- nrow(object) / nChains
-  nPars <- ncol(object)
-  cat("The object has", nPars, "parameters with", draws, "draws for each of",
+  nNodes <- ncol(object)
+  cat("The object has", nNodes, "nodes with", draws, "draws for each of",
       nChains, "chains.\n")
-  if(CRItype == "hdi") {
-    cat(paste0("HDIlo and HDIup are the limits of a ", CRImass*100,
-        "% Highest Density Credible Interval.\n"))
-  } else {
-    lo <- (1 - CRImass)/2 *100
-    hi <- 100 - lo
-    cat(paste0(lo, "% and ", hi, "% are the limits of a ", CRImass*100,
-        "% Symmetrical Credible Interval.\n"))
+  if(!is.null(CRImass) && !is.na(CRImass)) {
+    if(CRItype == "hdi") {
+      tmp <- paste0(c("l", "u"), round(CRImass * 100), collapse=" and ")
+      cat(paste0(tmp, " are the limits of a ", CRImass*100,
+          "% Highest Density Credible Interval.\n"))
+    } else {
+      tail <- (1 - CRImass)/2 * 100
+      tmp <- sprintf("p%04.1f and p%04.1f", tail, 100-tail)
+      cat(paste0(tmp, " are the limits of a ", CRImass*100,
+          "% Symmetrical Credible Interval.\n"))
+    }
   }
   if(Rhat && !is.null(sumtab$Rhat)) {
     cat("Rhat is the estimated potential scale reduction factor:\n")

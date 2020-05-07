@@ -17,10 +17,11 @@ summarise <- function(x, median, CRItype, CRImass, Rhat, MCEpc, n.eff, ...) {
   if(!is.na(CRImass)) {
     if(CRItype == "hdi") {
       CRI <- t(apply(x, 2, HDInterval::hdi, credMass=CRImass))
-      colnames(CRI) <- c("HDIlo", "HDIup")
+      colnames(CRI) <- paste0(c("l", "u"), round(CRImass * 100))
     } else {
       tail <- (1 - CRImass)/2
       CRI <- t(apply(x, 2, quantile, probs=c(tail, 1-tail), na.rm=TRUE))
+      colnames(CRI) <- sprintf("p%04.1f", c(tail, 1-tail)*100)
     }
     summary <- cbind(summary, CRI)
   }

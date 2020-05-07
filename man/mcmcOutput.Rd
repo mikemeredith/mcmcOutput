@@ -64,7 +64,7 @@ named arguments to be passed to other methods (currently not used).
 
   \tabular{ll}{
   \code{$} \tab  : extracts arrays for individual parameters in the same way as a \code{sims.list}. \cr
-  \code{[} with 1 index \tab  : returns the selected columns(s). \cr
+  \code{[} with 1 index \tab  : returns a new \code{mcmcOutput} object with the selected node(s). \cr
   \code{[} with 2 indices \tab  : returns the selected row(s) and columns(s). \cr
   \code{[} with 3 indices \tab  : behaves as an iterations x chains x nodes array.}
 }
