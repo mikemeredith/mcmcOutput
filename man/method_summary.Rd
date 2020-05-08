@@ -68,9 +68,11 @@ mco <- mcmcOutput(mcmcListExample)
 mco  # equivalent to ...
 print(mco)
 summary(mco)
-View(summary(mco))
+# Try using View, does not work on all platforms
+# View(summary(mco))
 tmp <- summary(mco, median=FALSE, CRItype="sym", CRImass=0.8, n.eff=TRUE, MCEpc=FALSE)
-View(tmp)
+tmp
+# View(tmp)
 
 mcos <- sumryList(mco)
 str(mcos)
