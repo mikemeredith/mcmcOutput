@@ -33,6 +33,13 @@ Mike Meredith.
 }
 
 \examples{
-# TO DO
+# Get some data
+data(mcmcListExample)
+( mco <- mcmcOutput(mcmcListExample) )
+# Tobs and Tsim are the Freeman-Tukey discrepancy measures
+
+discrepancyPlot(mco, observed="Tobs", simulated="Tsim") # defaults
+discrepancyPlot(mco, observed="Tobs", simulated="Tsim",
+    main="Salamanders", col='red')
 }
 \keyword{hplot}

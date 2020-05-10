@@ -17,7 +17,7 @@ Conversion to class \code{mcmcOutput}
 \description{
 Convert output containing MCMC chains to the class \code{mcmcOutput}. The function is generic, with methods for a range of input objects.
 
-\code{print}, \code{summary}, \code{plot} and \code{window} methods are available for the class.
+\code{print}, \code{\link[mcmcOutput:summary.mcmcOutput]{summary}}, \code{\link[mcmcOutput:plot.mcmcOutput]{plot}} and \code{\link[mcmcOutput:window.mcmcOutput]{window}} methods are available for the class. See also \code{\link{postPlot}}, \code{\link{discrepancyPlot}}, \code{\link{crosscorrPlot}}, \code{\link{postPriorOverlap}}.
 
 This class is still experimental and specs may be changed in future versions.
 }

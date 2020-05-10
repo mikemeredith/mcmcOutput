@@ -1,4 +1,10 @@
 
+CHANGES IN 0.0.0.9020 (2020-05-10)
+
+  * Revised 'mcmcListExample' to include discrepancy measures; more examples in several help files.
+
+  * Added 'names' method.
+
 CHANGES IN 0.0.0.9019 (2020-05-10)
 
   * Added function 'discrepancyPlot'.

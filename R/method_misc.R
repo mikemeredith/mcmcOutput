@@ -13,3 +13,8 @@ str.mcmcOutput <- function(object, ...)  {
   str(unclass(object), ...)
 }
 # .........................................................
+
+names.mcmcOutput <- function(x, ...)  {
+  colnames(unclass(x), ...)
+}
+# .........................................................
