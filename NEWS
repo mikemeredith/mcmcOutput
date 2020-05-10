@@ -1,4 +1,10 @@
 
+CHANGES IN 0.0.0.9019 (2020-05-10)
+
+  * Added function 'discrepancyPlot'.
+
+  * Fixed bug in 'print.mcmcOutput' when 'timeTaken' has length 0.
+
 CHANGES IN 0.0.0.9018 (2020-05-08)
 
   * Commented out calls to 'View' as not acceptable for CRAN checks.
