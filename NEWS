@@ -1,104 +1,20 @@
 
-CHANGES IN 0.0.0.9020 (2020-05-10)
-
-  * Revised 'mcmcListExample' to include discrepancy measures; more examples in several help files.
-
-  * Added 'names' method.
-
-CHANGES IN 0.0.0.9019 (2020-05-10)
-
-  * Added function 'discrepancyPlot'.
-
-  * Fixed bug in 'print.mcmcOutput' when 'timeTaken' has length 0.
-
-CHANGES IN 0.0.0.9018 (2020-05-08)
-
-  * Commented out calls to 'View' as not acceptable for CRAN checks.
-
-CHANGES IN 0.0.0.9017 (2020-05-07)
-
-  * Added functions 'getMCE', 'getNeff' and 'getRhat'.
-
-CHANGES IN 0.0.0.9016 (2020-05-07)
+CHANGES IN 0.0.1 (2020-05-10)
 
   * The '[' extractor method with 1 index now returns a new 'mcmcOutput' object.
 
-  * Changed names of credible interval columns to "standard R" names.
-
-CHANGES IN 0.0.0.9015 (2020-05-06)
-
-  * Added function 'postPriorOverlap'.
-
-CHANGES IN 0.0.0.9014 (2020-05-06)
-
   * Function 'densityFolded' is now exported.
 
-  * Refactored 'densityFolded', 'plot.mcmcOutput' and 'densityPlot' to use same helper function.
+  * Added 'sumryList', 'getMCE', 'getNeff', 'getRhat' and 'bigCrosscorr' functions.
 
-CHANGES IN 0.0.0.9013 (2020-05-04)
+  * Added 'diagPlot', 'tracePlot', 'densityPlot', 'acfPlot', 'postPlot', 'postPriorOverlap', 'discrepancyPlot' and 'crosscorrPlot' functions.
 
-  * Added function 'bigCrosscorr'.
+  * Added 'window' and 'plot' methods.
 
-CHANGES IN 0.0.0.9012 (2020-05-03)
-
-  * Added functions 'tracePlot', 'densityPlot' and 'acfPlot'.
-
-CHANGES IN 0.0.0.9011 (2020-05-03)
-
-  * Fixed bug in 'summary' (was reporting max Rhat = 1 regardless of actual value).
-
-  * Improved wording of some help files.
-
-CHANGES IN 0.0.0.9010 (2020-05-02)
-
-  * Setting CRImass = NA in 'summary' suppresses display of CRI.
-
-CHANGES IN 0.0.0.9009 (2020-04-26)
-
-  * Added 'sumryList' function.
-
-  * Changed 'MCE%' to 'MCEpc' as the '%' was upsetting the .Rd file compilation.
-
-CHANGES IN 0.0.0.9008 (2020-04-22)
-
-  * Added 'postPlot' function.
-
-  * Fixed bug in 'simsListAttr', not dealing with ragged arrays when only one column given (eg, if only p[4,4], treated as scalar).
-
-CHANGES IN 0.0.0.9007 (2020-04-21)
-
-  * Added 'crosscorrPlot' function.
-
-CHANGES IN 0.0.0.9006 (2020-04-20)
-
-  * Added 'diagPlot' function.
-
-CHANGES IN 0.0.0.9005 (2020-04-20)
-
-  * Added constructors for matrix and data frame.
-
-CHANGES IN 0.0.0.9004 (2020-04-20)
-
-  * Added 'plot' method.
-
-  * Refactored most helper functions
-
-CHANGES IN 0.0.0.9003 (2020-04-19)
-
-  * Added 'window' method.
-
-CHANGES IN 0.0.0.9002 (2020-04-19)
-
-  * Added constructors for 'mcmc', 'bugs', 'rjags', 'runjags'.
-
-  * More information is retained from the original object and used by the 'print' method.
-
-CHANGES IN 0.0.0.9001 (2020-04-18)
+  * Added constructors for 'mcmc', 'bugs', 'rjags', 'runjags', matrix and data frame.
 
   * Revamped 'summary' method, with choice of statistics to show in table.
 
   * 'print' method shows basic information about the object, does not display the MCMC chains or statistics.
 
-  * Added methods for 'head', 'tail', 'str'.
-
-
+  * Added methods for 'head', 'tail', 'str', 'names'.
