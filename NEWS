@@ -1,4 +1,10 @@
 
+CHANGES IN 0.0.1.9000 (2020-05-11)
+
+  * The 'plot' method now shows posterior plots (equivalent to 'postPlot') instead of diagnostic plots; for that use 'diagPlot'.
+
+  * Add an 'mcmcOutput' constructor for class 'numeric'.
+
 CHANGES IN 0.0.1 (2020-05-10)
 
   * The '[' extractor method with 1 index now returns a new 'mcmcOutput' object.

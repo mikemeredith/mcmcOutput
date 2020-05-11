@@ -1,115 +1,98 @@
 \name{plot.mcmcOutput}
 \alias{plot.mcmcOutput}
-\alias{diagPlot}
-\alias{tracePlot}
-\alias{densityPlot}
-\alias{acfPlot}
+\alias{postPlot}
 \title{
-Diagnostic graphics for class \code{mcmcOutput}
+Graphic display of marginal posterior probability distributions
 }
 \description{
-Display trace plots and density plots for the chains in the MCMC output. Each chain is plotted with a different colour. %See also \code{\link{crosscorrPlot}}.
-
-\code{diagPlot} is a wrapper equivalent to \code{plot(mcmcOutput(object))}.
+Plot the posterior probability distribution(s) for the nodes of a \code{mmcmcOutput} object. \code{postPlot} is equivalent to \code{plot(mcmcOutput(object))}.
 }
 \usage{
+\method{plot}{mcmcOutput}(x, credMass = 0.95, compVal = NULL, ROPE = NULL,
+  HDItextPlace = 0.7, showMode = FALSE, showCurve = FALSE,
+  shadeHDI = NULL, layout=c(3,3), ...)
 
-\method{plot}{mcmcOutput}(x, params, howMany, chains,
-  maxRows=4, RhatBad=1.05, precision=c("MCEpc", "n.eff"), ask=NULL, ...)
 
-diagPlot(object, ...)
-
-tracePlot(object, layout=c(3,3), ask=NULL, ...)
-densityPlot(object, layout=c(3,3), ask=NULL, ...)
-acfPlot(object, lag.max=NULL, layout=c(3,3), ask=NULL, ...)
+postPlot(object, credMass = 0.95, compVal = NULL, ROPE = NULL,
+  HDItextPlace = 0.7, showMode = FALSE, showCurve = FALSE,
+  shadeHDI = NULL, layout=c(3,3), ...)
 }
 \arguments{
   \item{x}{
-An object of class \code{mcmcOutput}.
+An object of class \code{mcmcOutput}, or a vector or array of values drawn from the target distribution(s).
 }
   \item{object}{
-An object of any class with MCMC output that can be coerced to class \code{mcmcOutput}.
+An object of any class that can be coerced to class \code{mcmcOutput}.
 }
-  \item{params}{
-An optional vector of column numbers or names; names are partially matched, so \code{params="alpha"} will match all of \code{alpha, alpha0, alpha[1], alphanew}; negative indices indicate parameters to exclude, positive and negative indices cannot be mixed.
+  \item{credMass}{
+the probability mass to include in credible intervals; set this to NULL to suppress plotting of credible intervals.
 }
-  \item{howMany}{
-How many draws per chain to plot; if negative, the draws at the end of the chains will be plotted; default is to plot all.
+  \item{compVal}{
+a value for comparison with those plotted; the same value will be used for all the plots.
 }
-  \item{chains}{
-Which chains to plot, a numeric vector; default is to plot all.
+  \item{ROPE}{
+a two element vector, such as \code{c(-1, 1)}, specifying the limits of the Region Of Practical Equivalence; the same value will be used for all the plots.
 }
-  \item{maxRows}{
-Maximum number of rows to display in one window; each row consists of a trace plot
- and a density plot for one parameter.
+  \item{HDItextPlace}{
+a value in [0,1] that controls the horizontal position of the labels at the ends of the HDI bar.
 }
-  \item{RhatBad}{
-Threshold for Rhat; parameters with \code{Rhat > RhatBad} are highlighted in red.
+  \item{showMode}{
+logical: if TRUE, the mode is displayed instead of the mean.
 }
-  \item{precision}{
-The statistic to use for the precision, displayed above the density plot.
+  \item{showCurve}{
+logical: if TRUE, the posterior density will be represented by a kernel density function instead of a histogram.
+}
+  \item{shadeHDI}{
+specifies a colour to shade the area under the curve corresponding to the HDI; NULL for no shading. Ignored if \code{showCurve = FALSE}. Use \code{colours()} to see a list of possible colours.
 }
   \item{layout}{
 a length-2 vector with the maximum number of rows and columns to display in the plotting frame.
 }
-  \item{lag.max}{
-Maximum lag at which to calculate the acf.
-}
-  \item{ask}{
-If \code{TRUE} and the number of parameters to plot is greater than \code{maxRows}, the user will be prompted before the next page of output is displayed. The default is to ask if the plotting device is the screen, not if it is a file.
-}
   \item{\dots}{
-Additional graphical parameters.
+graphical parameters and the \code{breaks} parameter for the histogram.
 }
 }
+\details{
+The data are plotted either as a histogram (above) or, if \code{showCurve = TRUE}, as a fitted kernel density curve (below). Either the mean or the mode of the distribution is displayed, depending on the parameter \code{showMode.} The Highest Density Interval (HDI) is shown as a horizontal bar, with labels for the ends of the interval.
 
+\figure{plotPost1.jpg} \cr
+\cr
+\figure{plotPost2.jpg}
+
+If a comparison value (\code{compVal}) is supplied, this is shown as a vertical green dotted line, together with the probability mass below and above this value. If values for a ROPE are supplied, these are shown as dark red vertical dashed lines, together with the percentage of probability mass within the ROPE.
+}
 \value{
-Return nothing, used for their plotting side effects.
+Returns nothing. Used for its plotting side-effect.
 }
 \author{
-Mike Meredith
+Mike Meredith, based on code by John Kruschke.
 }
 
 \seealso{
-\code{\link{crosscorrPlot}}, \code{\link{postPlot}} for a histogram and summary statistics.
+For details of the HDI calculation, see \code{\link{hdi}}.
 }
 \examples{
-# Create a fake mcmcOutput object:
-tmp <- cbind(
-  mu0 = rnorm(3000),         # normal, mean zero
-  mu10 = rnorm(3000, rep(9:11, each=1000), 1),
-                             # normal, mean 10, but poor mixing
-  sigma=rlnorm(3000),        # non-negative, skewed
-  `prob[1,1]` = rbeta(3000, 4, 4),  # probability, central mode
-  `prob[1,2]` = 0.3,         # constant
-  `prob[2,1]` = rbeta(3000, 1, 3),  # probability, mode = 0
-  N = rpois(3000, rep(c(24, 18, 18), each=1000)),
-                             # large integers (no zeros), poor mixing
-  n = rpois(3000, 2),        # small integers (some zeros)
-  allNA = NA,                # all values NA
-  someNA = suppressWarnings(log(rnorm(3000, 2, 2))),
-                             # some NaNs
-  const1 = rep(1, 3000),     # all values = 1
-  const3.2 = rep(10/3, 3000))# all values the same but not integer
-( fake <- mcmcOutput(tmp, nChains = 3) )
-summary(fake)
-plot(fake)
-plot(fake, params=3:6, main="params = 3:6")
-plot(fake, params=c("mu", "prob"), main="params = c('mu', 'prob')")
-plot(fake, params=c("mu", "prob"), howMany=200, main="howMany = 200")
-plot(fake, params=c("mu", "prob"), howMany=50, main="howMany = 50")
-plot(fake, params=c("mu", "prob"), howMany=-200, main="howMany = -200")
-plot(fake, params=c("mu", "prob"), chains=1:2, main="chains = 1:2")
-plot(fake, params=c("mu", "prob"), chains=2, main="chains = 2") # 1 chain -> no Rhat
-
-tracePlot(fake, layout=c(2,2))
-densityPlot(fake, xlab="value")
-acfPlot(fake, lag.max=10, lwd=2)
-
-# Use diagPlot with an mcmc.list object
+# Generate some data
 data(mcmcListExample)
-diagPlot(mcmcListExample)
-diagPlot(mcmcListExample, main="example", params=1:3, precision="n.eff")
+mco <- mcmcOutput(mcmcListExample)
+plot(mco)
+
+# Generate some data
+normal <- rnorm(1e5, 2, 1)
+postPlot(normal)
+postPlot(normal, col='wheat', border='magenta')
+postPlot(normal, credMass=0.8, compVal=0, ROPE=c(-0.2,0.2), xlab="Response variable")
+postPlot(normal, showMode=TRUE, showCurve=TRUE, compVal=5.5)
+
+# For integers:
+integers <- rpois(1e5, 12)
+postPlot(integers)
+
+# A severely bimodal distribution:
+bimodal <- c(rnorm(1e5), rnorm(5e4, 7))
+postPlot(bimodal)                  # A valid 95% CrI, but not HDI
+postPlot(bimodal, showCurve=TRUE)  # Correct 95% HDI
+postPlot(bimodal, showCurve=TRUE, shadeHDI='pink')
 
 }
 \keyword{hplot}

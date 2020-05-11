@@ -110,6 +110,24 @@ mcmcOutput.runjags <- function(object, header, ...) {
 }
 # '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+# Class numeric
+mcmcOutput.numeric <- function(object, nChains=1, header, ...) {
+  name <- deparse(substitute(object))
+  nc <- attr(object, "nChains")
+  if(!is.null(nc))
+    nChains <- nc
+  mcMat <- matrix(object, ncol=1)
+  colnames(mcMat) <- name
+  attr(mcMat, "nChains") <- nChains
+  attr(mcMat, "simsList") <- simsListAttr(mcMat)
+  if(missing(header))
+    header <- paste("MCMC values from matrix", sQuote(name))
+  attr(mcMat, "header") <- header
+  class(mcMat) <- c("mcmcOutput", "matrix", "array")
+  return(mcMat)
+}
+# '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 # Class matrix
 mcmcOutput.matrix <- function(object, nChains=1, header, ...) {
   name <- deparse(substitute(object))
