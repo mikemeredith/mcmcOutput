@@ -44,21 +44,24 @@ plot.mcmcOutput <- function(x, params, layout=c(3,3), credMass=0.95,
   }
 
   # Do the plots
-  old.par <- par(mar = c(4,1,1,1)+0.1, oma=c(1,1,3,1), "mfrow")
+  if(nPlots > 1) {     # Don't touch mfrow if only 1 plot
+    old.par <- par(mar = c(4,1,1,1)+0.1, oma=c(1,1,3,1), mfrow=layout)
+  } else {
+    old.par <- par(mar = c(4,1,4,1)+0.1)  # title on inner margin
+  }
     on.exit(par(old.par))
   if(nPlots > prod(layout)) {
     old.ask <- devAskNewPage(dev.interactive(orNone=TRUE))
     on.exit(devAskNewPage(old.ask), add=TRUE)
   }
-  if(nPlots > 1)
-    par(mfrow=layout)  # Don't touch mfrow if only 1 plot
+
   for(i in 1:nPlots) {
     if(is.null(dots$xlab))
       useArgs$xlab <- colnames(x)[i]
     postPlot1(x[, i], credMass=credMass, compVal=compVal, ROPE=ROPE,
         HDItextPlace=HDItextPlace, showMode=showMode, showCurve=showCurve,
              shadeHDI=shadeHDI, useArgs=useArgs, breaks=breaks)
-    title(title, outer=TRUE, cex.main=useArgs$cex.main)
+    title(title, outer=nPlots > 1, cex.main=useArgs$cex.main)
   }
 }
 # .............................................................................

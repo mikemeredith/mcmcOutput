@@ -1,4 +1,8 @@
 
+CHANGES IN 0.0.1.9002 (2020-05-13)
+
+  * Fixed issue with  'plot' method when only 1 plot.
+
 CHANGES IN 0.0.1.9001 (2020-05-13)
 
   * The 'plot' method and 'postPlot' gain a 'params' argument; this is #2 and 'layout' is now #3.
