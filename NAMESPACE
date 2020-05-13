@@ -18,7 +18,7 @@ export("sumryList", "diagPlot", "crosscorrPlot", "postPlot", "discrepancyPlot",
 
 # Constructor methods
 export("mcmcOutput")
-S3method("mcmcOutput", "default")
+S3method("mcmcOutput", "default") # returns error
 S3method("mcmcOutput", "mcmc.list")
 S3method("mcmcOutput", "mcmc")
 S3method("mcmcOutput", "jagsUI")
@@ -27,6 +27,7 @@ S3method("mcmcOutput", "rjags")
 S3method("mcmcOutput", "runjags")
 S3method("mcmcOutput", "numeric")
 S3method("mcmcOutput", "matrix")
+S3method("mcmcOutput", "array") # returns error
 S3method("mcmcOutput", "data.frame")
 
 # Extractors

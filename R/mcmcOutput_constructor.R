@@ -8,6 +8,11 @@ mcmcOutput.default <- function(object, ...) {
 }
 # ...................................................................
 
+mcmcOutput.array <- function(object, ...) {
+    stop(paste("No applicable method for class", class(object)[1]))
+}
+# ...................................................................
+
 # Class mcmcOutput, may seem odd but catches coercion
 mcmcOutput.mcmcOutput <- function(object, ...) {
     return(object)
@@ -134,6 +139,8 @@ mcmcOutput.matrix <- function(object, nChains=1, header, ...) {
   nc <- attr(object, "nChains")
   if(!is.null(nc))
     nChains <- nc
+  if(is.null(colnames(object)))  # mcmcObject must have column names
+    colnames(object) <- paste0("V[", 1:ncol(object), "]")
   mcMat <- object
   attr(mcMat, "nChains") <- nChains
   attr(mcMat, "simsList") <- simsListAttr(mcMat)

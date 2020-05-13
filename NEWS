@@ -1,4 +1,14 @@
 
+CHANGES IN 0.0.1.9001 (2020-05-13)
+
+  * The 'plot' method and 'postPlot' gain a 'params' argument; this is #2 and 'layout' is now #3.
+
+  * The 'plot' method does not touch 'par(mfrow)' when only 1 plot.
+
+  * Fixed 'mcmcOutput.matrix' when the matrix has no column names.
+
+  * Added an 'mcmcOutput' constructor for class 'array', which throws an error (prevents numeric arrays getting to 'mcmcOutput.numeric' and causing mayhem).
+
 CHANGES IN 0.0.1.9000 (2020-05-11)
 
   * The 'plot' method now shows posterior plots (equivalent to 'postPlot') instead of diagnostic plots; for that use 'diagPlot'.

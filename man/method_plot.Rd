@@ -8,21 +8,27 @@ Graphic display of marginal posterior probability distributions
 Plot the posterior probability distribution(s) for the nodes of a \code{mmcmcOutput} object. \code{postPlot} is equivalent to \code{plot(mcmcOutput(object))}.
 }
 \usage{
-\method{plot}{mcmcOutput}(x, credMass = 0.95, compVal = NULL, ROPE = NULL,
-  HDItextPlace = 0.7, showMode = FALSE, showCurve = FALSE,
-  shadeHDI = NULL, layout=c(3,3), ...)
+\method{plot}{mcmcOutput}(x, params, layout=c(3,3), credMass = 0.95,
+    compVal = NULL, ROPE = NULL, HDItextPlace = 0.7, showMode = FALSE,
+    showCurve = FALSE, shadeHDI = NULL, ...)
 
 
-postPlot(object, credMass = 0.95, compVal = NULL, ROPE = NULL,
-  HDItextPlace = 0.7, showMode = FALSE, showCurve = FALSE,
-  shadeHDI = NULL, layout=c(3,3), ...)
+postPlot(object, params, layout=c(3,3), credMass = 0.95,
+    compVal = NULL, ROPE = NULL, HDItextPlace = 0.7, showMode = FALSE,
+    showCurve = FALSE, shadeHDI = NULL, ...)
 }
 \arguments{
   \item{x}{
-An object of class \code{mcmcOutput}, or a vector or array of values drawn from the target distribution(s).
+An object of class \code{mcmcOutput}.
 }
   \item{object}{
 An object of any class that can be coerced to class \code{mcmcOutput}.
+}
+ \item{params}{
+An optional vector of column numbers or names; names are partially matched, so \code{params="alpha"} will match all of \code{alpha, alpha0, alpha[1], alphanew}; negative indices indicate parameters to exclude, positive and negative indices cannot be mixed.
+}
+  \item{layout}{
+a length-2 vector with the maximum number of rows and columns to display in the plotting frame.
 }
   \item{credMass}{
 the probability mass to include in credible intervals; set this to NULL to suppress plotting of credible intervals.
@@ -44,9 +50,6 @@ logical: if TRUE, the posterior density will be represented by a kernel density 
 }
   \item{shadeHDI}{
 specifies a colour to shade the area under the curve corresponding to the HDI; NULL for no shading. Ignored if \code{showCurve = FALSE}. Use \code{colours()} to see a list of possible colours.
-}
-  \item{layout}{
-a length-2 vector with the maximum number of rows and columns to display in the plotting frame.
 }
   \item{\dots}{
 graphical parameters and the \code{breaks} parameter for the histogram.
@@ -76,12 +79,15 @@ For details of the HDI calculation, see \code{\link{hdi}}.
 data(mcmcListExample)
 mco <- mcmcOutput(mcmcListExample)
 plot(mco)
+plot(mco, "p")   # plots p[1,1], p[2,2] and psi
+plot(mco, "p[")  # plots p[1,1] and p[2,2], not psi
 
 # Generate some data
 normal <- rnorm(1e5, 2, 1)
 postPlot(normal)
 postPlot(normal, col='wheat', border='magenta')
-postPlot(normal, credMass=0.8, compVal=0, ROPE=c(-0.2,0.2), xlab="Response variable")
+postPlot(normal, credMass=0.8, compVal=0, ROPE=c(-0.2,0.2),
+    xlab="Response variable")
 postPlot(normal, showMode=TRUE, showCurve=TRUE, compVal=5.5)
 
 # For integers:

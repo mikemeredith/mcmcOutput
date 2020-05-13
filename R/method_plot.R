@@ -3,9 +3,9 @@
 #  enhancements, including shading of the HDI in showCurve=TRUE plots.
 
 
-plot.mcmcOutput <- function(x, credMass=0.95, compVal=NULL, ROPE=NULL,
-           HDItextPlace=0.7, showMode=FALSE, showCurve=FALSE,
-           shadeHDI=NULL, layout=c(3,3), ... ) {
+plot.mcmcOutput <- function(x, params, layout=c(3,3), credMass=0.95,
+    compVal=NULL, ROPE=NULL, HDItextPlace=0.7, showMode=FALSE,
+    showCurve=FALSE, shadeHDI=NULL, ... ) {
 
   title <- deparse(substitute(x))
 
@@ -16,6 +16,13 @@ plot.mcmcOutput <- function(x, credMass=0.95, compVal=NULL, ROPE=NULL,
   if(!is.null(dots$main)) {
     title <- dots$main
     dots$main <- NULL
+  }
+  # Deal with subsetting
+  if(!missing(params)) {
+    params <- matchStart(params, colnames(x))
+    if(length(params) == 0)
+      stop("No columns match the specification in 'params'.", call.=FALSE)
+    x <- x[params]
   }
 
   nPlots <- ncol(x)
@@ -28,7 +35,7 @@ plot.mcmcOutput <- function(x, credMass=0.95, compVal=NULL, ROPE=NULL,
   breaks <- dots$breaks
 
   # Deal with layout
-  if(nPlots < prod(layout)) {  # adjust the layout
+  if(nPlots > 1 && nPlots < prod(layout)) {  # adjust the layout
     if(nPlots <= 3) {
       layout <- c(nPlots, 1)
     } else if(nPlots <= 6) {
@@ -43,7 +50,8 @@ plot.mcmcOutput <- function(x, credMass=0.95, compVal=NULL, ROPE=NULL,
     old.ask <- devAskNewPage(dev.interactive(orNone=TRUE))
     on.exit(devAskNewPage(old.ask), add=TRUE)
   }
-  par(mfrow=layout)
+  if(nPlots > 1)
+    par(mfrow=layout)  # Don't touch mfrow if only 1 plot
   for(i in 1:nPlots) {
     if(is.null(dots$xlab))
       useArgs$xlab <- colnames(x)[i]
@@ -157,7 +165,7 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
   } else {
       dres <- stats::density(x1)
       modeParam <- dres$x[which.max(dres$y)]
-      graphics::text(x=modeParam, y=cenTendHt, 
+      graphics::text(x=modeParam, y=cenTendHt,
           labels=bquote(mode==.(signifish(modeParam,3))), adj=c(0.5,0), cex=useArgs$cex, xpd=TRUE)
   }
   # Display the comparison value.
