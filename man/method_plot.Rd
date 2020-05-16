@@ -8,13 +8,15 @@ Graphic display of marginal posterior probability distributions
 Plot the posterior probability distribution(s) for the nodes of a \code{mmcmcOutput} object. \code{postPlot} is equivalent to \code{plot(mcmcOutput(object))}.
 }
 \usage{
-\method{plot}{mcmcOutput}(x, params, layout=c(3,3), credMass = 0.95,
-    compVal = NULL, ROPE = NULL, HDItextPlace = 0.7, showMode = FALSE,
+\method{plot}{mcmcOutput}(x, params, layout=c(3,3),
+    center = c("mean", "median", "mode"), CRImass=0.95,
+    compVal = NULL, ROPE = NULL, HDItextPlace = 0.7,
     showCurve = FALSE, shadeHDI = NULL, ...)
 
 
-postPlot(object, params, layout=c(3,3), credMass = 0.95,
-    compVal = NULL, ROPE = NULL, HDItextPlace = 0.7, showMode = FALSE,
+postPlot(object, params, layout=c(3,3),
+    center = c("mean", "median", "mode"), CRImass=0.95,
+    compVal = NULL, ROPE = NULL, HDItextPlace = 0.7,
     showCurve = FALSE, shadeHDI = NULL, ...)
 }
 \arguments{
@@ -30,7 +32,10 @@ An optional vector of column numbers or names; names are partially matched, so \
   \item{layout}{
 a length-2 vector with the maximum number of rows and columns to display in the plotting frame.
 }
-  \item{credMass}{
+  \item{center}{
+the statistic to use to represent the central tendency.
+}
+  \item{CRImass}{
 the probability mass to include in credible intervals; set this to NULL to suppress plotting of credible intervals.
 }
   \item{compVal}{
@@ -41,9 +46,6 @@ a two element vector, such as \code{c(-1, 1)}, specifying the limits of the Regi
 }
   \item{HDItextPlace}{
 a value in [0,1] that controls the horizontal position of the labels at the ends of the HDI bar.
-}
-  \item{showMode}{
-logical: if TRUE, the mode is displayed instead of the mean.
 }
   \item{showCurve}{
 logical: if TRUE, the posterior density will be represented by a kernel density function instead of a histogram.
@@ -86,9 +88,9 @@ plot(mco, "p[")  # plots p[1,1] and p[2,2], not psi
 normal <- rnorm(1e5, 2, 1)
 postPlot(normal)
 postPlot(normal, col='wheat', border='magenta')
-postPlot(normal, credMass=0.8, compVal=0, ROPE=c(-0.2,0.2),
+postPlot(normal, CRImass=0.8, compVal=0, ROPE=c(-0.2,0.2),
     xlab="Response variable")
-postPlot(normal, showMode=TRUE, showCurve=TRUE, compVal=5.5)
+postPlot(normal, center="mode", showCurve=TRUE, compVal=5.5)
 
 # For integers:
 integers <- rpois(1e5, 12)

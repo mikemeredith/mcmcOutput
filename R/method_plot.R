@@ -3,11 +3,13 @@
 #  enhancements, including shading of the HDI in showCurve=TRUE plots.
 
 
-plot.mcmcOutput <- function(x, params, layout=c(3,3), credMass=0.95,
-    compVal=NULL, ROPE=NULL, HDItextPlace=0.7, showMode=FALSE,
+plot.mcmcOutput <- function(x, params, layout=c(3,3), 
+    center = c("mean", "median", "mode"), CRImass=0.95,
+    compVal=NULL, ROPE=NULL, HDItextPlace=0.7,
     showCurve=FALSE, shadeHDI=NULL, ... ) {
 
   title <- deparse(substitute(x))
+  center <- match.arg(center)
 
   # Deal with ... argument:
   dots <- list(...)
@@ -17,6 +19,18 @@ plot.mcmcOutput <- function(x, params, layout=c(3,3), credMass=0.95,
     title <- dots$main
     dots$main <- NULL
   }
+  if(!is.null(dots$credMass)) {
+    CRImass <- dots$credMass
+    dots$credMass <- NULL
+    warning("Argument 'credMass' is deprecated, please use 'CRImass'.", call.=FALSE)
+  }
+  if(!is.null(dots$showMode)) {
+    if(dots$showMode)
+      center <- "mode"
+    dots$showMode <- NULL
+    warning("Argument 'showMode' is deprecated, please use 'center'.", call.=FALSE)
+  }
+  
   # Deal with subsetting
   if(!missing(params)) {
     params <- matchStart(params, colnames(x))
@@ -58,8 +72,8 @@ plot.mcmcOutput <- function(x, params, layout=c(3,3), credMass=0.95,
   for(i in 1:nPlots) {
     if(is.null(dots$xlab))
       useArgs$xlab <- colnames(x)[i]
-    postPlot1(x[, i], credMass=credMass, compVal=compVal, ROPE=ROPE,
-        HDItextPlace=HDItextPlace, showMode=showMode, showCurve=showCurve,
+    postPlot1(x[, i], CRImass=CRImass, compVal=compVal, ROPE=ROPE,
+        HDItextPlace=HDItextPlace, center=center, showCurve=showCurve,
              shadeHDI=shadeHDI, useArgs=useArgs, breaks=breaks)
     title(title, outer=nPlots > 1, cex.main=useArgs$cex.main)
   }
@@ -68,7 +82,7 @@ plot.mcmcOutput <- function(x, params, layout=c(3,3), credMass=0.95,
 
 
 # Does a plot for a single vector (1 parameter)
-postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showCurve,
+postPlot1 <- function(x1, CRImass, compVal, ROPE, HDItextPlace, center, showCurve,
            shadeHDI, useArgs, breaks) {
 
   # Remove NAs
@@ -86,7 +100,7 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
     return(NULL)
   }
   if(is.null(useArgs$xlim))
-    useArgs$xlim <- range(compVal, hdi(x1, 0.99))
+    useArgs$xlim <- range(compVal, ROPE, hdi(x1, 0.99))
 
   if (is.null(breaks)) {
     if (all(x1 == round(x1))) { # all integers
@@ -113,11 +127,11 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
     do.call(plot, plotArgs)
     abline(h=0, col='grey')
     # Display the HDI.
-    if(!is.null(credMass)) {
-      HDI <- hdi(densCurve, credMass, allowSplit=TRUE)
+    if(!is.null(CRImass)) {
+      HDI <- hdi(densCurve, CRImass, allowSplit=TRUE)
       ht <- attr(HDI, "height")
       if(nrow(HDI) == 1)  # hdi is not split
-        HDI <- matrix(hdi(x1, credMass), nrow=1)
+        HDI <- matrix(hdi(x1, CRImass), nrow=1)
       if(!is.null(shadeHDI))  {
         for (i in 1:nrow(HDI)) {
           inHDI <- which(densCurve$x >= HDI[i, 1] & densCurve$x <= HDI[i, 2])
@@ -130,7 +144,7 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
       }
       do.call(lines, plotArgs)
       segments(HDI[, 1], ht, HDI[, 2], ht, lwd=4, lend='butt')
-      text( mean(HDI), ht, bquote(.(100*credMass) * "% HDI" ),
+      text( mean(HDI), ht, bquote(.(100*CRImass) * "% HDI" ),
             adj=c(.5,-1.7), cex=useArgs$cex, xpd=TRUE )
       # text( HDI, ht, bquote(.(signif(HDI, 3))),
       text( HDI, ht, signifish(HDI, 3),
@@ -148,10 +162,10 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
     plotArgs$x <- histinfo
     do.call(plot, plotArgs)
     # Display the HDI.
-    if(!is.null(credMass)) {
-      HDI <- hdi( x1, credMass )
+    if(!is.null(CRImass)) {
+      HDI <- hdi( x1, CRImass )
       lines(HDI, c(0,0), lwd=4, lend='butt')
-      text( mean(HDI), 0, bquote(.(100*credMass) * "% HDI" ),
+      text( mean(HDI), 0, bquote(.(100*CRImass) * "% HDI" ),
             adj=c(.5,-1.7), cex=useArgs$cex, xpd=TRUE )
       text( HDI[1], 0, signifish(HDI[1],3),
             adj=c(HDItextPlace,-0.5), cex=useArgs$cex, xpd=TRUE )
@@ -160,17 +174,16 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
     }
   }
 
-  # Display mean or mode:
-  if (showMode==FALSE) {
-      meanParam <- mean(x1)
-      text(meanParam, cenTendHt,
-            bquote(mean==.(signifish(meanParam,3))), adj=c(.5,0), cex=useArgs$cex, xpd=TRUE)
-  } else {
-      dres <- stats::density(x1)
-      modeParam <- dres$x[which.max(dres$y)]
-      graphics::text(x=modeParam, y=cenTendHt,
-          labels=bquote(mode==.(signifish(modeParam,3))), adj=c(0.5,0), cex=useArgs$cex, xpd=TRUE)
-  }
+  # Display mean, median or mode:
+  cenTend <- switch(center,
+      mean = mean(x1),
+      median = median(x1),
+      mode = getMode(x1) )
+  safeText(cenTend, cenTendHt,
+      paste(center, "=", signifish(cenTend,3)),
+      adj=c(0.5,0), cex=useArgs$cex, xpd=TRUE)
+  lines(c(cenTend,cenTend), c(0.96*cenTendHt,0), lty='dashed')
+
   # Display the comparison value.
   if (!is.null(compVal)) {
     cvHt <- 0.8 * cenTendHt
@@ -179,24 +192,20 @@ postPlot1 <- function(x1, credMass, compVal, ROPE, HDItextPlace, showMode, showC
     pcltCompVal <- 100 - pcgtCompVal
     lines(c(compVal,compVal), c(0.96*cvHt,0),
             lty="dotted", lwd=1, col=cvCol )
-    text(compVal, cvHt,
-           bquote(.(pcltCompVal)*"% < " *
-                   .(signifish(compVal,3)) * " < "*.(pcgtCompVal)*"%" ),
-           adj=c(pcltCompVal/100,0), cex=0.8*useArgs$cex, col=cvCol, xpd=TRUE)
+    safeText(compVal, cvHt, cex=0.8*useArgs$cex, col=cvCol, xpd=TRUE,
+        bquote(.(pcltCompVal)*"% < " * .(signifish(compVal,3)) * " < "*
+        .(pcgtCompVal)*"%" ))
   }
   # Display the ROPE.
-  if ( !is.null( ROPE ) ) {
+  if (!is.null(ROPE)) {
     ROPEtextHt <- 0.55 * cenTendHt
     ropeCol <- "darkred"
     pcInROPE <- mean(x1 > ROPE[1] & x1 < ROPE[2])
-    lines(c(ROPE[1],ROPE[1]), c(0.96*ROPEtextHt,0), lty="dotted", lwd=2,
-            col=ropeCol)
-    lines(c(ROPE[2],ROPE[2]), c(0.96*ROPEtextHt,0), lty="dotted", lwd=2,
-            col=ropeCol)
-    text(mean(ROPE), ROPEtextHt,
-           bquote( .(round(100*pcInROPE))*"% in ROPE" ),
-           adj=c(.5,0), cex=1, col=ropeCol, xpd=TRUE )
+    segments(x0 = ROPE, y0 = c(0,0), y1=rep(0.96*ROPEtextHt,2),
+      lty="dotted", lwd=2, col=ropeCol)
+    safeText(mean(ROPE), ROPEtextHt,
+           bquote(.(round(100*pcInROPE))*"% in ROPE"),
+           adj=c(0.5,0), cex=1, col=ropeCol, xpd=TRUE )
   }
-  # return(invisible(histinfo))
 }
 

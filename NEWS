@@ -1,4 +1,16 @@
 
+CHANGES IN 0.0.1.9003 (2020-05-16)
+
+  * Changes to arguments for 'summary.mcmcOutput' and 'sumryList':
+    - added arguments 'mode', 'overlap0' and 'f';
+    - 'CRItype' now has option "none".
+
+  * Changes to 'plot.mcmcOutput' and 'postplot':
+    - argument 'credMass' replaced by 'CRImass', as in 'summary';
+    - argument 'showMode' replaced by new argument 'center=c("mean", "median", "mode")';
+    - a vertical dashed line is shown at the location of the chosen center;
+    - text on the plot (mean, compVal, etc) does not go beyond the edge of the plot.
+
 CHANGES IN 0.0.1.9002 (2020-05-13)
 
   * Fixed issue with  'plot' method when only 1 plot.

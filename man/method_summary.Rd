@@ -13,13 +13,17 @@ Print and summary methods for objects of class \code{mcmcOutput}
 \code{print} displays characteristics of the \code{mcmcOutput} object. It does \emph{not} display summaries of the values: for that use \code{summary}.
 }
 \usage{
-\method{summary}{mcmcOutput}(object, digits=3, median=TRUE, CRItype=c("hdi", "symmetrical"),
-    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE, ...)
+\method{summary}{mcmcOutput}(object, digits=3, median=TRUE, mode=FALSE,
+    CRItype=c("hdi", "symmetrical", "none"),
+    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,
+    overlap0=FALSE, f=FALSE, ...)
 
 \method{print}{mcmcOutput}(x, ...)
 
-sumryList(object, median=TRUE, CRItype=c("hdi", "symmetrical"),
-    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,...)
+sumryList(object, median=TRUE, mode=FALSE,
+    CRItype=c("hdi", "symmetrical", "none"),
+    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,
+    overlap0=FALSE, f=FALSE,...)
 }
 \arguments{
   \item{x, object}{
@@ -30,6 +34,9 @@ the number of digits for rounding of values in the output.
 }
   \item{median}{
 if TRUE, the median will be included as a column in the data frame produced.
+}
+  \item{mode}{
+if TRUE, the mode will be included as a column in the data frame produced.
 }
   \item{CRItype}{
 if \code{hdi}, the credible interval will be a highest density interval; if \code{symmetrical}, a symmetrical CRI will be generated with \code{quantile}; ignored if \code{CRImass=NA}.
@@ -45,6 +52,12 @@ if TRUE, estimates of the Monte Carlo standard error as a percentage of the post
 }
   \item{n.eff}{
 if TRUE, estimates of the effective number of draws allowing for autocorrelation will be included; ignored if < 100 values per chain. See \code{\link{getNeff}}.
+}
+  \item{overlap0}{
+if TRUE, a column with TRUE/FALSE will be included, indicating whether the credible interval includes zero. Ignored if no CRI is calculated.
+}
+  \item{f}{
+if TRUE, a column with the proportion of the posterior with the same sign as the mean.
 }
   \item{\dots}{
 further arguments for the print or summary function.

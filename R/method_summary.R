@@ -3,12 +3,15 @@
 
 # Needs helper 'summarise' function to build the summary matrix
 
-summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "symmetrical"),
-    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,...)  {
+summary.mcmcOutput <- function(object, digits=3, median=TRUE, mode=FALSE,
+    CRItype=c("hdi", "symmetrical", "none"),
+    CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,
+    overlap0=FALSE, f=FALSE, ...)  {
 
   CRItype <- match.arg(CRItype)
-  sumtab <- summarise(object, median=median, CRItype=CRItype,
-    CRImass=CRImass, Rhat=Rhat, MCEpc = MCEpc, n.eff=n.eff, ...)
+  sumtab <- summarise(object, median=median, mode=mode, CRItype=CRItype,
+    CRImass=CRImass, Rhat=Rhat, MCEpc = MCEpc, n.eff=n.eff, overlap0=overlap0,
+    f=f, ...)
 
   header <- attr(object, "header")
   if(!is.null(header))
@@ -18,7 +21,7 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
   nNodes <- ncol(object)
   cat("The object has", nNodes, "nodes with", draws, "draws for each of",
       nChains, "chains.\n")
-  if(!is.null(CRImass) && !is.na(CRImass)) {
+  if(!is.null(CRImass) && !is.na(CRImass) && CRItype != "none") {
     if(CRItype == "hdi") {
       tmp <- paste0(c("l", "u"), round(CRImass * 100), collapse=" and ")
       cat(paste0(tmp, " are the limits of a ", CRImass*100,
@@ -82,6 +85,8 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, CRItype=c("hdi", "
   }
   cat("\n")
   out <- round(sumtab, digits)
+  if(!is.null(out$overlap0))
+    out$overlap0 <- out$overlap0 > 0 # convert to TRUE/FALSE
   attr(out, "nChains") <- attr(object, "nChains")
   attr(out, "simsList") <- attr(object, "simsList")
   return(out)

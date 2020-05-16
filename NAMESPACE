@@ -8,7 +8,7 @@ importFrom("stats", "window", "median", "sd", "cor", "quantile",
 importFrom("utils", "head", "tail", "str", "object.size", "modifyList")
 importFrom("grDevices", "dev.interactive", "devAskNewPage", "colorRampPalette", "rgb")
 importFrom("graphics", "plot", "plot.default", "abline", "box", "layout", "matplot",
-    "par", "segments", "text", "title", "rect", "hist", "lines", "polygon")
+    "par", "segments", "text", "title", "rect", "hist", "lines", "polygon", "strwidth")
 
 # Functions
 export("sumryList", "diagPlot", "crosscorrPlot", "postPlot", "discrepancyPlot",
