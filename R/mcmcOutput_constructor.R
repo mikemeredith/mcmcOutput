@@ -51,19 +51,25 @@ mcmcOutput.mcmc <- function(object, header, ...) {
 }
 # .......................................................................
 
-# Class jagsUI::jagsUI used by jagsUI::jags - this class may change in future versions
+# Class jagsUI::jagsUI used by jagsUI::jags
+# code updated 2020-05-17 to deal with both CRAN and GitHub versions
 mcmcOutput.jagsUI <- function(object, header, ...) {
   name <- deparse(substitute(object))
   mcMat <- mcmcOutput(object$samples)
-  # attr(mcMat, "nChains") <- length(object$samples)
-  # attr(mcMat, "simsList") <- simsListAttr(mcMat)
   if(missing(header))
     header <- paste("MCMC values from jagsUI object", sQuote(name))
   attr(mcMat, "header") <- header
   attr(mcMat, "modelFile") <- object$modfile
-  attr(mcMat, "runDate") <- object$run.date
-  attr(mcMat, "timeTaken") <- object$mcmc.info$elapsed.mins * 60
-  # class(mcMat) <- c("mcmcOutput", "matrix", "array") # not needed
+  runDate <- object$run.date
+  if(is.null(runDate))  # new 'jagsUI' class format
+    runDate <- object$run.info$end.time
+  attr(mcMat, "runDate") <- runDate
+  timeTaken <- object$mcmc.info$elapsed.mins
+  if(is.null(timeTaken))  # new 'jagsUI' class format
+    timeTaken <- difftime(object$run.info$end.time, object$run.info$start.time,
+        units="mins")
+  attr(mcMat, "timeTaken") <- c(unclass(timeTaken)) * 60  # convert to secs
+  attr(mcMat, "adaptationOK") <- object$mcmc.info$sufficient.adapt
   return(mcMat)
 }
 # .......................................................................

@@ -14,8 +14,16 @@ print.mcmcOutput <- function(x, ...)  {
   if(!is.null(runDate))
     cat("Model run date:", format(runDate, "%Y-%m-%d %H:%M:%S"), "\n")
   timeTaken <- attr(x, "timeTaken")
-  if(!is.null(timeTaken) && length(timeTaken) > 0)
-    cat("MCMC chain generation took", secs2dhms(timeTaken[1], 2), "\n")
+  if(!is.null(timeTaken))
+    cat("MCMC chain generation took", secs2dhms(timeTaken, 2), "\n")
+  adaptationOK <- attr(x, "adaptationOK")
+  if(!is.null(adaptationOK)) {
+    if(adaptationOK) {
+      cat("Adaptation was sufficient.\n")
+    } else {
+      cat("Warning: Adaptation was NOT sufficient.\n")
+    }
+  }
 
   nChains <- attr(x, "nChains")
   draws <- nrow(x) / nChains
