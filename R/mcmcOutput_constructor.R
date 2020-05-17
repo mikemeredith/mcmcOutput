@@ -115,7 +115,7 @@ mcmcOutput.runjags <- function(object, header, ...) {
 }
 # '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-# Class numeric
+# Class numeric (but not a matrix or array)
 mcmcOutput.numeric <- function(object, nChains=1, header, ...) {
   name <- deparse(substitute(object))
   nc <- attr(object, "nChains")
@@ -126,7 +126,7 @@ mcmcOutput.numeric <- function(object, nChains=1, header, ...) {
   attr(mcMat, "nChains") <- nChains
   attr(mcMat, "simsList") <- simsListAttr(mcMat)
   if(missing(header))
-    header <- paste("MCMC values from matrix", sQuote(name))
+    header <- paste("MCMC values from numeric vector", sQuote(name))
   attr(mcMat, "header") <- header
   class(mcMat) <- c("mcmcOutput", "matrix", "array")
   return(mcMat)

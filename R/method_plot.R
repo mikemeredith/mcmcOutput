@@ -1,9 +1,9 @@
-# Function taken from package BEST, original code by John Kruschke.
+# Function based on original code by John Kruschke in package BEST.
 # Modified by Mike to make best use of ... argument and various other
 #  enhancements, including shading of the HDI in showCurve=TRUE plots.
 
 
-plot.mcmcOutput <- function(x, params, layout=c(3,3), 
+plot.mcmcOutput <- function(x, params, layout=c(3,3),
     center = c("mean", "median", "mode"), CRImass=0.95,
     compVal=NULL, ROPE=NULL, HDItextPlace=0.7,
     showCurve=FALSE, shadeHDI=NULL, ... ) {
@@ -30,7 +30,7 @@ plot.mcmcOutput <- function(x, params, layout=c(3,3),
     dots$showMode <- NULL
     warning("Argument 'showMode' is deprecated, please use 'center'.", call.=FALSE)
   }
-  
+
   # Deal with subsetting
   if(!missing(params)) {
     params <- matchStart(params, colnames(x))
@@ -91,20 +91,24 @@ postPlot1 <- function(x1, CRImass, compVal, ROPE, HDItextPlace, center, showCurv
   if(length(x1) == 0) {
     text <- "No non-NA values."
   } else if(diff(range(x1)) < sqrt(.Machine$double.eps)) {
-    text <- paste("All values are the same\n", signifish(x1[1], 4))
+    text <- paste("All values\nare the same\n", signifish(x1[1], 4))
   }
   if(!is.null(text)){
     plot(0,0, type = "n", xlim=c(-1,1), ann = FALSE, axes = FALSE)
     title(xlab=useArgs$xlab, cex.lab=useArgs$cex.lab)
-    text(0,0, text)
+    text(0,0, text, cex=useArgs$cex)
     return(NULL)
   }
   if(is.null(useArgs$xlim))
     useArgs$xlim <- range(compVal, ROPE, hdi(x1, 0.99))
 
-  if (is.null(breaks)) {
-    if (all(x1 == round(x1))) { # all integers
-      breaks <- seq(min(x1), max(x1) + 1) - 0.5
+  if(is.null(breaks)) {
+    if(all(x1 == round(x1))) { # all integers
+      if(diff(range(x1)) < 80) { # one bar per value
+        breaks <- seq(min(x1), max(x1) + 1, by=0.5) - 0.25
+      } else {
+        breaks <- hist(x1, breaks=50, plot=FALSE)$breaks
+      }
     } else {
       nbreaks <- ceiling(diff(range(x1)) /
                           diff(hdi(x1)) * 18)
@@ -167,10 +171,8 @@ postPlot1 <- function(x1, CRImass, compVal, ROPE, HDItextPlace, center, showCurv
       lines(HDI, c(0,0), lwd=4, lend='butt')
       text( mean(HDI), 0, bquote(.(100*CRImass) * "% HDI" ),
             adj=c(.5,-1.7), cex=useArgs$cex, xpd=TRUE )
-      text( HDI[1], 0, signifish(HDI[1],3),
+      safeText(HDI, c(0,0), signifish(HDI,3),
             adj=c(HDItextPlace,-0.5), cex=useArgs$cex, xpd=TRUE )
-      text( HDI[2], 0, signifish(HDI[2],3),
-            adj=c(1.0-HDItextPlace,-0.5), cex=useArgs$cex, xpd=TRUE )
     }
   }
 
@@ -208,4 +210,3 @@ postPlot1 <- function(x1, CRImass, compVal, ROPE, HDItextPlace, center, showCurv
            adj=c(0.5,0), cex=1, col=ropeCol, xpd=TRUE )
   }
 }
-

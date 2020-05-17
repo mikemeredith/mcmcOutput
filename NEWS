@@ -1,4 +1,10 @@
 
+CHANGES IN 0.0.1.9004 (2020-05-17)
+
+  * More tweaks to 'plot.mcmcOutput' and 'postplot':
+    - integers now plotted as separate bars if possible;
+    - labels for the CRI do not go beyond the edge of the plot.
+
 CHANGES IN 0.0.1.9003 (2020-05-16)
 
   * Changes to arguments for 'summary.mcmcOutput' and 'sumryList':

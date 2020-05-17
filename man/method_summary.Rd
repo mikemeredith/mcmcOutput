@@ -10,6 +10,8 @@ Print and summary methods for objects of class \code{mcmcOutput}
 
 \code{sumryList} generates summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object and returns them as a list-of-lists, see Value.
 
+\emph{\code{summary} and \code{sumryList} now have a \code{CRItype="none"} option and arguments to include \code{overlap0} and \code{f} in the summary table.}
+
 \code{print} displays characteristics of the \code{mcmcOutput} object. It does \emph{not} display summaries of the values: for that use \code{summary}.
 }
 \usage{
@@ -67,7 +69,7 @@ further arguments for the print or summary function.
 \value{
 \code{print} returns \code{x} invisibly.
 
-\code{summary} returns a data frame with summary and diagnostic statistics for each parameter; mean and SD are always included, other columns if selected. It has attributes for \code{nChains} and \code{simsList} derived from the input object.
+\code{summary} returns a data frame with columns for summary and diagnostic statistics and a row for each node; mean and SD are always included, other columns if selected. It has attributes for \code{nChains} and \code{simsList} derived from the input object.
 
 \code{sumryList} returns a list with a component for each statistic; each component is itself a list with the values for each parameter. See examples.
 }

@@ -6,6 +6,8 @@ Graphic display of marginal posterior probability distributions
 }
 \description{
 Plot the posterior probability distribution(s) for the nodes of a \code{mmcmcOutput} object. \code{postPlot} is equivalent to \code{plot(mcmcOutput(object))}.
+
+\emph{Note the new argument \code{center} with options to display the mean, median or mode; this replaces the \code{showMode} argument. The argument \code{CRImass} replaces \code{credMass}.}
 }
 \usage{
 \method{plot}{mcmcOutput}(x, params, layout=c(3,3),
@@ -39,7 +41,7 @@ the statistic to use to represent the central tendency.
 the probability mass to include in credible intervals; set this to NULL to suppress plotting of credible intervals.
 }
   \item{compVal}{
-a value for comparison with those plotted; the same value will be used for all the plots.
+a single value for comparison with those plotted; the same value will be used for all the plots.
 }
   \item{ROPE}{
 a two element vector, such as \code{c(-1, 1)}, specifying the limits of the Region Of Practical Equivalence; the same value will be used for all the plots.
@@ -58,7 +60,7 @@ graphical parameters and the \code{breaks} parameter for the histogram.
 }
 }
 \details{
-The data are plotted either as a histogram (above) or, if \code{showCurve = TRUE}, as a fitted kernel density curve (below). Either the mean or the mode of the distribution is displayed, depending on the parameter \code{showMode.} The Highest Density Interval (HDI) is shown as a horizontal bar, with labels for the ends of the interval.
+The data are plotted either as a histogram (above) or, if \code{showCurve = TRUE}, as a fitted kernel density curve (below). The mean, median or mode of the distribution is displayed, depending on the parameter \code{center}. The Highest Density Interval (HDI) is shown as a horizontal bar, with labels for the ends of the interval.
 
 \figure{plotPost1.jpg} \cr
 \cr

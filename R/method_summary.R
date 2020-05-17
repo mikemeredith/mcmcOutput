@@ -83,6 +83,11 @@ summary.mcmcOutput <- function(object, digits=3, median=TRUE, mode=FALSE,
     txt <- c(txt, ".\n")
     cat(paste0(txt, collapse=""))
   }
+  if(overlap0 && !is.null(sumtab$overlap0))
+    cat("overlap0 is TRUE if 0 falls in the credible interval.\n")
+  if(f && !is.null(sumtab$f))
+    cat("f is the proportion of the posterior with the same sign as the mean.\n")
+
   cat("\n")
   out <- round(sumtab, digits)
   if(!is.null(out$overlap0))
