@@ -1,47 +1,9 @@
 
-CHANGES IN 0.0.1.9005 (2020-05-17)
+CHANGES IN 0.1.0 (2020-05-21)
 
-  * 'mcmcOutput.jagsUI' modified to handle the new output format as well as the old.
-
-CHANGES IN 0.0.1.9004 (2020-05-17)
-
-  * More tweaks to 'plot.mcmcOutput' and 'postplot':
-    - integers now plotted as separate bars if possible;
-    - labels for the CRI do not go beyond the edge of the plot.
-
-CHANGES IN 0.0.1.9003 (2020-05-16)
-
-  * Changes to arguments for 'summary.mcmcOutput' and 'sumryList':
-    - added arguments 'mode', 'overlap0' and 'f';
-    - 'CRItype' now has option "none".
-
-  * Changes to 'plot.mcmcOutput' and 'postplot':
-    - argument 'credMass' replaced by 'CRImass', as in 'summary';
-    - argument 'showMode' replaced by new argument 'center=c("mean", "median", "mode")';
-    - a vertical dashed line is shown at the location of the chosen center;
-    - text on the plot (mean, compVal, etc) does not go beyond the edge of the plot.
-
-CHANGES IN 0.0.1.9002 (2020-05-13)
-
-  * Fixed issue with  'plot' method when only 1 plot.
-
-CHANGES IN 0.0.1.9001 (2020-05-13)
-
-  * The 'plot' method and 'postPlot' gain a 'params' argument; this is #2 and 'layout' is now #3.
-
-  * The 'plot' method does not touch 'par(mfrow)' when only 1 plot.
-
-  * Fixed 'mcmcOutput.matrix' when the matrix has no column names.
-
-  * Added an 'mcmcOutput' constructor for class 'array', which throws an error (prevents numeric arrays getting to 'mcmcOutput.numeric' and causing mayhem).
-
-CHANGES IN 0.0.1.9000 (2020-05-11)
+  * In 'plot.mcmcOutput' and 'postplot', integers are now plotted as separate bars if possible.
 
   * The 'plot' method now shows posterior plots (equivalent to 'postPlot') instead of diagnostic plots; for that use 'diagPlot'.
-
-  * Add an 'mcmcOutput' constructor for class 'numeric'.
-
-CHANGES IN 0.0.1 (2020-05-10)
 
   * The '[' extractor method with 1 index now returns a new 'mcmcOutput' object.
 
@@ -51,12 +13,8 @@ CHANGES IN 0.0.1 (2020-05-10)
 
   * Added 'diagPlot', 'tracePlot', 'densityPlot', 'acfPlot', 'postPlot', 'postPriorOverlap', 'discrepancyPlot' and 'crosscorrPlot' functions.
 
-  * Added 'window' and 'plot' methods.
+  * Added 'window' and 'plot' methods, also 'head', 'tail', 'str', 'names'.
 
   * Added constructors for 'mcmc', 'bugs', 'rjags', 'runjags', matrix and data frame.
 
   * Revamped 'summary' method, with choice of statistics to show in table.
-
-  * 'print' method shows basic information about the object, does not display the MCMC chains or statistics.
-
-  * Added methods for 'head', 'tail', 'str', 'names'.
