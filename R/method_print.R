@@ -18,7 +18,7 @@ print.mcmcOutput <- function(x, ...)  {
     cat("MCMC chain generation took", secs2dhms(timeTaken, 2), "\n")
   adaptationOK <- attr(x, "adaptationOK")
   if(!is.null(adaptationOK)) {
-    if(adaptationOK) {
+    if(all(adaptationOK)) {
       cat("Adaptation was sufficient.\n")
     } else {
       cat("Warning: Adaptation was NOT sufficient.\n")

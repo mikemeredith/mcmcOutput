@@ -1,4 +1,8 @@
 
+CHANGES IN 0.1.0.9000 (2020-05-23)
+
+  * Fixed bug in 'print' method when 'adaptationOK' is a vector.
+
 CHANGES IN 0.1.0 (2020-05-21)
 
   * In 'plot.mcmcOutput' and 'postplot', integers are now plotted as separate bars if possible.
