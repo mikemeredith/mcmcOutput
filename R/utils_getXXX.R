@@ -12,7 +12,7 @@ getMCE <- function(x, pc=TRUE, bad=5, sort=TRUE) {
   if(sort)
     out <- sort(out, decreasing=TRUE, na.last=TRUE)
   if(length(out) == 0)
-    cat("No values exceed", bad, "\n")
+    message("No values exceed", bad)
   return(out)
 }
 
@@ -26,7 +26,7 @@ getNeff <- function(x, bad=10000, sort=TRUE) {
   if(sort)
     out <- sort(out, na.last=TRUE)
   if(length(out) == 0)
-    cat("No values are less than", bad, "\n")
+    message("No values are less than", bad)
   return(out)
 }
 
@@ -40,7 +40,7 @@ getRhat <- function(x, bad=1.1, sort=TRUE) {
   if(sort)
     out <- sort(out, decreasing=TRUE, na.last=TRUE)
   if(length(out) == 0)
-    cat("No values are less than", bad, "\n")
+    message("No values are less than", bad)
   return(out)
 }
 

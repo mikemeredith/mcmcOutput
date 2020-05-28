@@ -49,7 +49,7 @@ Mike Meredith
 }
 \examples{
 require(graphics)
-par(mfrow=2:1)
+oldpar <- par(mfrow=2:1)
 
 x1 <- rnorm(1e4)            # no constraint on x1
 plot(density(x1))
@@ -79,5 +79,5 @@ plot(density(x5))
 tmp <- densityFolded(x5)
 with(tmp, matplot(x, y, type='l'))
 
-par(mfrow=c(1,1))
+par(oldpar)
 }

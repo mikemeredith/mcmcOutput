@@ -53,9 +53,6 @@ Returns the correlation matrix invisibly.
 Mike Meredith
 }
 
-% \seealso{
-% \code{\link{plotPost}} for a histogram and summary statistics.
-% }
 \examples{
 # Create a data frame of fake MCMC output:
 mu0 <- rnorm(3000)         # normal, mean zero

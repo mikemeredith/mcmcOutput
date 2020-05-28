@@ -44,9 +44,9 @@ p <- mco$p
 str(p)
 p[1:5,,]  # Elements of p not defined in the model are filled with NAs
 
-# "[" with one index
+# "[" with one index, produces new mcmcOutput object
 head(mco[4:5])
-head(mco[c("z[35]", "z[39]")])
+print(mco[c("z[35]", "z[39]")])
 
 # "[" with two indices
 mco[1:5, "psi"]  # First 5 values for psi (chain #1)

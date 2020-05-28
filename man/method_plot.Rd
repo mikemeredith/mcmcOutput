@@ -79,7 +79,7 @@ Mike Meredith, based on code by John Kruschke.
 For details of the HDI calculation, see \code{\link{hdi}}.
 }
 \examples{
-# Generate some data
+# Use the example data set
 data(mcmcListExample)
 mco <- mcmcOutput(mcmcListExample)
 plot(mco)

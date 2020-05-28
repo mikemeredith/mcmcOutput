@@ -1,4 +1,12 @@
 
+CHANGES IN 0.1.0.9001 (2020-05-28)
+
+  * Changes to Description to remove Bayesian jargon.
+
+  * 'summary' gains a 'verbose' argument: if FALSE, Console output is suppressed but the summary table is still produced.
+
+  * Functions 'bigCrossCorr', 'getMCE', 'getRhat' and 'getNeff' now use 'message' to write to the Console; use 'suppressMessages' to stop this.
+
 CHANGES IN 0.1.0.9000 (2020-05-23)
 
   * Fixed bug in 'print' method when 'adaptationOK' is a vector.

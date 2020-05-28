@@ -6,7 +6,7 @@
 Print and summary methods for objects of class \code{mcmcOutput}
 }
 \description{
-\code{summary} generates a data frame with summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object, and prints a brief overview to the Console. The data frame will be displayed in the Console unless assigned to an object or passed to \code{View}.
+\code{summary} generates a data frame with summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object, and (if \code{verbose = TRUE}) prints a brief overview to the Console. The data frame will be displayed in the Console unless assigned to an object or passed to \code{View}.
 
 \code{sumryList} generates summary and diagnostic statistics for each of the MCMC chains in the \code{mcmcOutput} object and returns them as a list-of-lists, see Value.
 
@@ -18,14 +18,14 @@ Print and summary methods for objects of class \code{mcmcOutput}
 \method{summary}{mcmcOutput}(object, digits=3, median=TRUE, mode=FALSE,
     CRItype=c("hdi", "symmetrical", "none"),
     CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,
-    overlap0=FALSE, f=FALSE, ...)
+    overlap0=FALSE, f=FALSE, verbose=TRUE, ...)
 
 \method{print}{mcmcOutput}(x, ...)
 
 sumryList(object, median=TRUE, mode=FALSE,
     CRItype=c("hdi", "symmetrical", "none"),
     CRImass=0.95, Rhat=TRUE, MCEpc = TRUE, n.eff=FALSE,
-    overlap0=FALSE, f=FALSE,...)
+    overlap0=FALSE, f=FALSE, ...)
 }
 \arguments{
   \item{x, object}{
@@ -61,6 +61,9 @@ if TRUE, a column with TRUE/FALSE will be included, indicating whether the credi
   \item{f}{
 if TRUE, a column with the proportion of the posterior with the same sign as the mean.
 }
+  \item{verbose}{
+if FALSE, suppresses output to the Console, other than the table of statistics.
+}
   \item{\dots}{
 further arguments for the print or summary function.
 }
@@ -69,7 +72,7 @@ further arguments for the print or summary function.
 \value{
 \code{print} returns \code{x} invisibly.
 
-\code{summary} returns a data frame with columns for summary and diagnostic statistics and a row for each node; mean and SD are always included, other columns if selected. It has attributes for \code{nChains} and \code{simsList} derived from the input object.
+\code{summary} returns a data frame with columns for summary and diagnostic statistics and a row for each node; mean and SD are always included, other columns if selected. It has attributes for \code{nChains} and \code{simsList} derived from the input object. The output will appear in the Console unless assigned to an object or passed to \code{View}.
 
 \code{sumryList} returns a list with a component for each statistic; each component is itself a list with the values for each parameter. See examples.
 }
@@ -83,11 +86,12 @@ mco <- mcmcOutput(mcmcListExample)
 mco  # equivalent to ...
 print(mco)
 summary(mco)
-# Try using View, does not work on all platforms
-# View(summary(mco))
-tmp <- summary(mco, median=FALSE, CRItype="sym", CRImass=0.8, n.eff=TRUE, MCEpc=FALSE)
+# just the summary data frame
+summary(mco, verbose=FALSE)
+# assign the output to an object
+tmp <- summary(mco, median=FALSE, CRItype="sym", CRImass=0.8,
+    n.eff=TRUE, MCEpc=FALSE)
 tmp
-# View(tmp)
 
 mcos <- sumryList(mco)
 str(mcos)

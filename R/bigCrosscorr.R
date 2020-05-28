@@ -23,8 +23,8 @@ bigCrosscorr <- function(x, big = 0.6, digits=3) {
   xcor[lower.tri(xcor, diag=TRUE)] <- 0
   BIG <- which(abs(xcor) > big, arr.ind=TRUE)
   if(nrow(BIG) == 0) {
-    cat(paste0("No cross-correlations exceed ", big,
-        "; the output data frame has 0 rows.\n"))
+    message(paste0("No cross-correlations exceed ", big,
+        "; the output data frame has 0 rows."))
   }
   nms <- rownames(xcor)
   tmp <- data.frame(node1=nms[BIG[, 1]], node2=nms[BIG[, 2]],
