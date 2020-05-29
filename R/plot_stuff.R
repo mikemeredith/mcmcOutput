@@ -30,6 +30,10 @@ plotStuff <- function(type, object, objName, layout, ask, lag.max, ... ) {
   dots <- list(...)
   if(length(dots) == 1 && class(dots[[1]]) == "list")
     dots <- dots[[1]]
+  if(!is.null(dots$main)) {
+    objName <- dots$main
+    dots$main <- NULL
+  }
 
   # Do the plots
   old.par <- par(mar = c(4,1,1,1)+0.1, oma=c(1,1,3,1), "mfrow")
