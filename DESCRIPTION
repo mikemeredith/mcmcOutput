@@ -1,7 +1,7 @@
 Package: mcmcOutput
 Type: Package
 Title: Functions to Store, Manipulate and Display Markov Chain Monte Carlo (MCMC) Output
-Version: 0.1.0.9002
+Version: 0.1.1
 Date: 2020-05-29
 Depends: R (>= 2.10)
 Imports: HDInterval, coda, MASS
