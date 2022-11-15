@@ -7,23 +7,23 @@ discrepancyPlot <- function(object, observed, simulated, ...) {
   objName <- deparse(substitute(object))
 
   object <- mcmcOutput(object)  # coerce to class mcmcOutput
-  
+
   # Check that observed and simulated exist
   nms <- colnames(object)
   if(!(observed %in% nms))
     stop("Can't find the node ", sQuote(observed), " in ", sQuote(objName), call.=FALSE )
   if(!(simulated %in% nms))
     stop("Can't find the node ", sQuote(simulated), " in ", sQuote(objName), call.=FALSE )
-    
+
   # Get the things to plot
   obs <- object[, observed]
   sim <- object[, simulated]
   lims <- range(obs, sim)
   pval <- mean(sim > obs)
-  
+
   # Deal with dots
   dots <- list(...)
-  if(length(dots) == 1 && class(dots[[1]]) == "list")
+  if(length(dots) == 1 && inherits(dots[[1]], "list"))
     dots <- dots[[1]]
   defaultArgs <- list(
     xlim=lims, ylim=lims, pch=16, cex=0.8, col=rgb(0, 0, 0, 0.3), bty='l',
@@ -32,7 +32,7 @@ discrepancyPlot <- function(object, observed, simulated, ...) {
     ylab=paste("Simulated:", sQuote(simulated)),
     main="Posterior Predictive GOF check")
   useArgs <- modifyList(defaultArgs, dots)
-  
+
   # Do the plot
   useArgs$x <- obs
   useArgs$y <- sim
@@ -43,7 +43,7 @@ discrepancyPlot <- function(object, observed, simulated, ...) {
   } else {
     "bottomright"
   }
-  graphics::legend(where, paste("P =", round(pval, 2)), 
+  graphics::legend(where, paste("P =", round(pval, 2)),
         bty = "n", cex = 1.5)
   return(pval)
 }

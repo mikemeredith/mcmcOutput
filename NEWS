@@ -1,4 +1,10 @@
 
+CHANGES IN 0.1.2 (2022-11-15)
+
+  * Ngumbang Juat as maintainer.
+
+  * Changed remaining `if(class(x) == "list"...` to `if(inherits(x, "list"))...`.
+
 CHANGES IN 0.1.1 (2020-05-29)
 
   * Changes to Description to remove Bayesian jargon.

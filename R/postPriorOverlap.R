@@ -6,12 +6,12 @@ postPriorOverlap <- function(x, prior, priorPars, breaks=NULL,
   # Does a posterior histogram for a single parameter, adds the prior,
   #   displays and calculates the overlap.
   # Returns the overlap.
-  
+
   objName <- deparse(substitute(x))
 
   # Deal with ... argument:
   dots <- list(...)
-  if(length(dots) == 1 && class(dots[[1]]) == "list")
+  if(length(dots) == 1 && inherits(dots[[1]], "list"))
     dots <- dots[[1]]
   defaultArgs <- list(
     xlab=objName, yaxt="n", ylab="", main="Posterior-prior overlap", cex.lab=1.5,
@@ -31,7 +31,7 @@ postPriorOverlap <- function(x, prior, priorPars, breaks=NULL,
   histArgs$border <- hcols[4]
   histArgs$freq <- FALSE
   histArgs$add <- FALSE
-  
+
   histinfo <- do.call(hist, histArgs)
 
   if (is.numeric(prior))  {

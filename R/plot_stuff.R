@@ -28,7 +28,7 @@ plotStuff <- function(type, object, objName, layout, ask, lag.max, ... ) {
 
   # Deal with ... argument:
   dots <- list(...)
-  if(length(dots) == 1 && class(dots[[1]]) == "list")
+  if(length(dots) == 1 && inherits(dots[[1]], "list"))
     dots <- dots[[1]]
   if(!is.null(dots$main)) {
     objName <- dots$main

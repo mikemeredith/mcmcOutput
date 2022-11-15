@@ -13,7 +13,7 @@ plot.mcmcOutput <- function(x, params, layout=c(3,3),
 
   # Deal with ... argument:
   dots <- list(...)
-  if(length(dots) == 1 && class(dots[[1]]) == "list")
+  if(length(dots) == 1 && inherits(dots[[1]], "list"))
     dots <- dots[[1]]
   if(!is.null(dots$main)) {
     title <- dots$main

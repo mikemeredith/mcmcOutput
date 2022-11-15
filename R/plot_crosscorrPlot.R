@@ -12,7 +12,7 @@ crosscorrPlot <- function(x, params=NULL, col, addSpace=c(0,0), ...) {
        "#ffffbf", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027"))(255)
   }
   dots <- list(...)
-  if(length(dots) == 1 && class(dots[[1]]) == "list")
+  if(length(dots) == 1 && inherits(dots[[1]], "list"))
     dots <- dots[[1]]
 
   defaultArgs <- list(main=paste("Cross-correlation plot for", xName),

@@ -10,7 +10,7 @@ diagPlot <- function(object, params, howMany, chains,
 
   # Plotting parameters
   dots <- list(...)
-  if(length(dots) == 1 && class(dots[[1]]) == "list")
+  if(length(dots) == 1 && inherits(dots[[1]], "list"))
     dots <- dots[[1]]
   mainTitle <- dots$main # this goes in outer margin
   dots$main <- NULL

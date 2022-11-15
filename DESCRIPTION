@@ -1,12 +1,12 @@
 Package: mcmcOutput
 Type: Package
 Title: Functions to Store, Manipulate and Display Markov Chain Monte Carlo (MCMC) Output
-Version: 0.1.1
-Date: 2020-05-29
+Version: 0.1.2
+Date: 2022-11-15
 Depends: R (>= 2.10)
 Imports: HDInterval, coda, MASS
-Authors@R: c(
-    person("Mike", "Meredith", role=c("aut", "cre"), email=("mike@mmeredith.net")),
+Authors@R: c(person("Ngumbang", "Juat", role="cre", email="mgumbangjuat@hotmail.com"),
+    person("Mike", "Meredith", role="aut"),
     person("John", "Kruschke", role="ctb"))
 URL: https://github.com/mikemeredith/mcmcOutput
 BugReports: https://github.com/mikemeredith/mcmcOutput/issues
